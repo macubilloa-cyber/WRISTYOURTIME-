@@ -26,14 +26,16 @@ export default function WatchCard({ watch, onSelect, onToggleFav, isFav, onToggl
       onMouseLeave={() => setHovered(false)}
       style={{
         background: "var(--bg-card)",
-        border: `1px solid ${hovered ? "#2a2a2a" : "var(--border)"}`,
-        borderRadius: 2,
+        border: `1px solid ${hovered ? "var(--gold)" : "var(--border)"}`,
+        borderRadius: 3,
         overflow: "hidden",
         cursor: "pointer",
         position: "relative",
         transition: "transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s ease, border-color 0.2s",
-        transform: hovered ? "translateY(-8px)" : "translateY(0)",
-        boxShadow: hovered ? "0 24px 64px rgba(201,168,76,0.15)" : "0 4px 20px rgba(0,0,0,0.5)",
+        transform: hovered ? "translateY(-6px)" : "translateY(0)",
+        boxShadow: hovered
+          ? "0 20px 48px rgba(0,0,0,0.12), 0 0 0 1px var(--gold)"
+          : "0 2px 12px rgba(0,0,0,0.06)",
         animation: "fadeUp 0.4s ease both",
       }}
     >
@@ -41,9 +43,9 @@ export default function WatchCard({ watch, onSelect, onToggleFav, isFav, onToggl
       {watch.tag && (
         <div style={{
           position: "absolute", top: 12, left: 12, zIndex: 2,
-          background: TAG_COLORS[watch.tag], color: "#000",
+          background: TAG_COLORS[watch.tag], color: "#fff",
           padding: "3px 10px", fontSize: 10, fontWeight: 700,
-          letterSpacing: "0.12em", borderRadius: 1,
+          letterSpacing: "0.12em", borderRadius: 2,
           fontFamily: "var(--font-ui)",
         }}>
           {watch.tag}
@@ -56,7 +58,7 @@ export default function WatchCard({ watch, onSelect, onToggleFav, isFav, onToggl
         style={{
           position: "absolute", top: 10, right: 12, zIndex: 2,
           background: "none", border: "none", cursor: "pointer",
-          fontSize: 20, color: isFav ? "#ef4444" : "#333",
+          fontSize: 20, color: isFav ? "#ef4444" : "#ccc",
           transition: "color 0.2s, transform 0.2s",
           transform: isFav ? "scale(1.2)" : "scale(1)",
         }}
@@ -68,7 +70,7 @@ export default function WatchCard({ watch, onSelect, onToggleFav, isFav, onToggl
       {/* Image / Emoji */}
       <div style={{
         height: 200,
-        background: "linear-gradient(145deg, #141414, #0d0d0d)",
+        background: "linear-gradient(145deg, #ede8e0, #e4ddd2)",
         display: "flex", alignItems: "center", justifyContent: "center",
         overflow: "hidden", borderBottom: "1px solid var(--border)",
         position: "relative",
@@ -85,7 +87,7 @@ export default function WatchCard({ watch, onSelect, onToggleFav, isFav, onToggl
           />
         ) : (
           <span style={{
-            fontSize: 80, filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.5))",
+            fontSize: 80,
             transition: "transform 0.4s ease",
             transform: hovered ? "scale(1.08) rotate(-5deg)" : "scale(1) rotate(0deg)",
             display: "block",
@@ -94,8 +96,8 @@ export default function WatchCard({ watch, onSelect, onToggleFav, isFav, onToggl
           </span>
         )}
         <div style={{
-          position: "absolute", bottom: 0, left: 0, right: 0, height: 60,
-          background: "linear-gradient(to top, #111, transparent)",
+          position: "absolute", bottom: 0, left: 0, right: 0, height: 40,
+          background: "linear-gradient(to top, rgba(232,224,208,0.7), transparent)",
           pointerEvents: "none",
         }} />
       </div>
@@ -121,8 +123,8 @@ export default function WatchCard({ watch, onSelect, onToggleFav, isFav, onToggl
           {[watch.category, watch.case, watch.water].map((spec) => (
             <span key={spec} style={{
               fontSize: 9, padding: "3px 8px",
-              border: "1px solid #252525", borderRadius: 1,
-              color: "var(--text-dim)", letterSpacing: "0.08em",
+              border: "1px solid var(--border)", borderRadius: 2,
+              color: "var(--text-muted)", letterSpacing: "0.08em",
               fontFamily: "var(--font-ui)",
             }}>
               {spec}
@@ -144,7 +146,7 @@ export default function WatchCard({ watch, onSelect, onToggleFav, isFav, onToggl
             <button
               onClick={handleAddToCart}
               style={{
-                background: added ? "#25D36622" : "var(--gold-dim)",
+                background: added ? "#25D36618" : "var(--gold-dim)",
                 border: `1px solid ${added ? "#25D366" : "var(--gold)"}`,
                 color: added ? "#25D366" : "var(--gold)",
                 padding: "6px 12px", borderRadius: 2, cursor: "pointer",
@@ -162,9 +164,9 @@ export default function WatchCard({ watch, onSelect, onToggleFav, isFav, onToggl
               title={inCompare ? "Quitar del comparador" : "Agregar al comparador"}
               style={{
                 background: inCompare ? "var(--gold-dim)" : "transparent",
-                border: `1px solid ${inCompare ? "var(--gold)" : "#2a2a2a"}`,
+                border: `1px solid ${inCompare ? "var(--gold)" : "var(--border)"}`,
                 borderRadius: 2, padding: "6px 10px", cursor: "pointer",
-                color: inCompare ? "var(--gold)" : "#444",
+                color: inCompare ? "var(--gold)" : "var(--text-muted)",
                 fontSize: 13, transition: "all 0.2s", flexShrink: 0,
               }}
             >

@@ -4,7 +4,7 @@ export default function CompareDrawer({ watches, onRemove, onClear }) {
   if (watches.length === 0) return null;
 
   const specKeys = [
-    ["Precio", (w) => `$${w.price.toLocaleString()}`],
+    ["Precio", (w) => `₡${w.price.toLocaleString()}`],
     ["Categoría", (w) => w.category],
     ["Movimiento", (w) => w.movement],
     ["Reserva", (w) => w.power_reserve],
@@ -17,7 +17,7 @@ export default function CompareDrawer({ watches, onRemove, onClear }) {
   return (
     <div style={{
       position: "fixed", inset: 0, zIndex: 400,
-      background: "rgba(0,0,0,0.9)", backdropFilter: "blur(10px)",
+      background: "rgba(30,25,20,0.55)", backdropFilter: "blur(10px)",
       overflowY: "auto", padding: "40px 24px",
       animation: "fadeIn 0.2s ease",
     }}>
@@ -28,7 +28,7 @@ export default function CompareDrawer({ watches, onRemove, onClear }) {
           <div>
             <h2 style={{
               fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 400,
-              letterSpacing: "0.05em",
+              letterSpacing: "0.05em", color: "var(--text)",
             }}>
               Comparador
             </h2>
@@ -39,7 +39,7 @@ export default function CompareDrawer({ watches, onRemove, onClear }) {
           <button
             onClick={onClear}
             style={{
-              background: "transparent", border: "1px solid #2a2a2a",
+              background: "transparent", border: "1px solid var(--border)",
               color: "var(--text-dim)", padding: "8px 20px", borderRadius: 2,
               cursor: "pointer", fontSize: 12, letterSpacing: "0.08em",
               fontFamily: "var(--font-ui)",
@@ -57,14 +57,14 @@ export default function CompareDrawer({ watches, onRemove, onClear }) {
         }}>
           {watches.map((w) => (
             <div key={w.id} style={{
-              background: "#111", border: "1px solid #1e1e1e",
+              background: "var(--bg-card)", border: "1px solid var(--border)",
               borderRadius: 2, overflow: "hidden",
             }}>
               {/* Image */}
               <div style={{
-                height: 160, background: "#0d0d0d",
+                height: 160, background: "linear-gradient(145deg, #ede8e0, #e4ddd2)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                overflow: "hidden", borderBottom: "1px solid #1a1a1a",
+                overflow: "hidden", borderBottom: "1px solid var(--border)",
               }}>
                 {w.image
                   ? <img src={w.image} alt={w.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -81,7 +81,7 @@ export default function CompareDrawer({ watches, onRemove, onClear }) {
                 </p>
                 <h3 style={{
                   fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 400,
-                  marginBottom: 12, lineHeight: 1.2,
+                  marginBottom: 12, lineHeight: 1.2, color: "var(--text)",
                 }}>
                   {w.name}
                 </h3>
@@ -91,10 +91,10 @@ export default function CompareDrawer({ watches, onRemove, onClear }) {
                   {specKeys.map(([label, fn]) => (
                     <div key={label} style={{
                       display: "flex", justifyContent: "space-between",
-                      padding: "7px 0", borderBottom: "1px solid #181818",
+                      padding: "7px 0", borderBottom: "1px solid var(--border-light)",
                       fontSize: 12,
                     }}>
-                      <span style={{ color: "#555", fontFamily: "var(--font-ui)" }}>{label}</span>
+                      <span style={{ color: "var(--text-muted)", fontFamily: "var(--font-ui)" }}>{label}</span>
                       <span style={{
                         color: label === "Precio" ? "var(--gold)" : "var(--text)",
                         fontFamily: "var(--font-display)",
@@ -109,7 +109,7 @@ export default function CompareDrawer({ watches, onRemove, onClear }) {
                 {/* Actions */}
                 <div style={{ padding: "16px 0", display: "flex", flexDirection: "column", gap: 8 }}>
                   <a
-                    href={`https://wa.me/${storeConfig.whatsapp}?text=${encodeURIComponent(`${storeConfig.whatsappGreeting} *${w.brand} ${w.name}* ($${w.price.toLocaleString()}). ¿Tienen disponibilidad?`)}`}
+                    href={`https://wa.me/${storeConfig.whatsapp}?text=${encodeURIComponent(`${storeConfig.whatsappGreeting} *${w.brand} ${w.name}* (₡${w.price.toLocaleString()}). ¿Tienen disponibilidad?`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -124,7 +124,7 @@ export default function CompareDrawer({ watches, onRemove, onClear }) {
                   <button
                     onClick={() => onRemove(w.id)}
                     style={{
-                      background: "transparent", border: "1px solid #222",
+                      background: "transparent", border: "1px solid var(--border)",
                       color: "#ef4444", padding: "7px", borderRadius: 2,
                       cursor: "pointer", fontSize: 11, fontFamily: "var(--font-ui)",
                     }}

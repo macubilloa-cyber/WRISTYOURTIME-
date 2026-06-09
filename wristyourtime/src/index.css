@@ -6,16 +6,16 @@
 
 :root {
   --gold: #c9a84c;
-  --gold-light: #e2c97e;
-  --gold-dim: #c9a84c22;
-  --bg: #080808;
-  --bg-card: #111111;
-  --bg-hover: #161616;
-  --border: #1e1e1e;
-  --border-light: #2a2a2a;
-  --text: #e8e0d0;
-  --text-dim: #888;
-  --text-muted: #444;
+  --gold-light: #dfc070;
+  --gold-dim: #c9a84c18;
+  --bg: #f4f0e8;
+  --bg-card: #ffffff;
+  --bg-hover: #fdfbf8;
+  --border: #e0d9cc;
+  --border-light: #ece6db;
+  --text: #1a1917;
+  --text-dim: #6b6560;
+  --text-muted: #a09890;
   --green: #25D366;
   --red: #ef4444;
   --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -41,7 +41,7 @@ body {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
+  background: #cec8be;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
