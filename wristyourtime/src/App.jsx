@@ -85,8 +85,9 @@ export default function App() {
       {/* ── HEADER ── */}
       <header style={{
         position: "sticky", top: 0, zIndex: 100,
-        background: "rgba(8,8,8,0.96)", backdropFilter: "blur(12px)",
+        background: "rgba(255,255,255,0.96)", backdropFilter: "blur(12px)",
         borderBottom: "1px solid var(--border)",
+        boxShadow: "0 1px 16px rgba(0,0,0,0.06)",
       }}>
         <div style={{
           maxWidth: 1280, margin: "0 auto",
@@ -107,7 +108,7 @@ export default function App() {
             </div>
             <p style={{
               fontFamily: "var(--font-display)", fontStyle: "italic",
-              fontSize: 11, color: "#555", letterSpacing: "0.1em", marginTop: 2,
+              fontSize: 11, color: "var(--text-muted)", letterSpacing: "0.1em", marginTop: 2,
             }}>
               {storeConfig.tagline}
             </p>
@@ -120,8 +121,8 @@ export default function App() {
               onClick={() => setShowOnlyFavs((v) => !v)}
               style={{
                 background: showOnlyFavs ? "#ef444422" : "transparent",
-                border: `1px solid ${showOnlyFavs ? "#ef4444" : "#2a2a2a"}`,
-                color: showOnlyFavs ? "#ef4444" : "#555",
+                border: `1px solid ${showOnlyFavs ? "#ef4444" : "var(--border)"}`,
+                color: showOnlyFavs ? "#ef4444" : "var(--text-muted)",
                 padding: "7px 14px", borderRadius: 2, cursor: "pointer",
                 fontSize: 13, transition: "all 0.2s",
               }}
@@ -136,8 +137,8 @@ export default function App() {
               disabled={compare.length === 0}
               style={{
                 background: compare.length > 0 ? "var(--gold)" : "transparent",
-                border: `1px solid ${compare.length > 0 ? "var(--gold)" : "#2a2a2a"}`,
-                color: compare.length > 0 ? "#000" : "#555",
+                border: `1px solid ${compare.length > 0 ? "var(--gold)" : "var(--border)"}`,
+                color: compare.length > 0 ? "#000" : "var(--text-muted)",
                 padding: "7px 16px", borderRadius: 2, cursor: compare.length > 0 ? "pointer" : "not-allowed",
                 fontSize: 12, fontWeight: 600, letterSpacing: "0.08em",
                 transition: "all 0.2s", fontFamily: "var(--font-ui)",
@@ -151,7 +152,7 @@ export default function App() {
               onClick={() => setCartOpen(true)}
               style={{
                 background: cartCount > 0 ? "var(--gold)" : "transparent",
-                border: `1px solid ${cartCount > 0 ? "var(--gold)" : "#2a2a2a"}`,
+                border: `1px solid ${cartCount > 0 ? "var(--gold)" : "var(--border)"}`,
                 color: cartCount > 0 ? "#000" : "#555",
                 padding: "7px 16px", borderRadius: 2, cursor: "pointer",
                 fontSize: 12, fontWeight: 600, letterSpacing: "0.08em",
@@ -168,7 +169,7 @@ export default function App() {
 
       {/* ── HERO ── */}
       <div style={{
-        background: "linear-gradient(180deg, #0f0f0f 0%, var(--bg) 100%)",
+        background: "linear-gradient(180deg, #ebe5d9 0%, var(--bg) 100%)",
         borderBottom: "1px solid var(--border)",
         padding: "48px 32px 40px",
         textAlign: "center",
@@ -188,7 +189,7 @@ export default function App() {
         </h1>
         <p style={{
           fontFamily: "var(--font-display)", fontStyle: "italic",
-          fontSize: 16, color: "#777", letterSpacing: "0.05em",
+          fontSize: 16, color: "var(--text-muted)", letterSpacing: "0.05em",
         }}>
           Suizo. Preciso. Eterno.
         </p>
@@ -197,7 +198,7 @@ export default function App() {
       {/* ── FILTERS ── */}
       <div style={{
         position: "sticky", top: 70, zIndex: 99,
-        background: "rgba(10,10,10,0.97)", backdropFilter: "blur(10px)",
+        background: "rgba(244,240,232,0.97)", backdropFilter: "blur(10px)",
         borderBottom: "1px solid var(--border)",
         padding: "14px 32px",
       }}>
@@ -209,7 +210,7 @@ export default function App() {
           <div style={{ position: "relative", flex: "1 1 220px" }}>
             <span style={{
               position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)",
-              color: "#444", fontSize: 16, pointerEvents: "none",
+              color: "var(--text-muted)", fontSize: 16, pointerEvents: "none",
             }}>
               ⌕
             </span>
@@ -218,8 +219,8 @@ export default function App() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar reloj o marca..."
               style={{
-                width: "100%", background: "#151515",
-                border: "1px solid #222", borderRadius: 2,
+                width: "100%", background: "var(--bg-card)",
+                border: "1px solid var(--border)", borderRadius: 2,
                 padding: "9px 12px 9px 34px", color: "var(--text)",
                 fontSize: 13, boxSizing: "border-box",
               }}
@@ -230,7 +231,7 @@ export default function App() {
           <select
             value={brand} onChange={(e) => setBrand(e.target.value)}
             style={{
-              background: "#151515", border: "1px solid #222", borderRadius: 2,
+              background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 2,
               padding: "9px 14px", color: "var(--text)", fontSize: 13, cursor: "pointer",
             }}
           >
@@ -241,7 +242,7 @@ export default function App() {
           <select
             value={category} onChange={(e) => setCategory(e.target.value)}
             style={{
-              background: "#151515", border: "1px solid #222", borderRadius: 2,
+              background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 2,
               padding: "9px 14px", color: "var(--text)", fontSize: 13, cursor: "pointer",
             }}
           >
@@ -266,15 +267,15 @@ export default function App() {
               <button
                 onClick={resetFilters}
                 style={{
-                  background: "transparent", border: "1px solid #2a2a2a",
-                  color: "#666", padding: "6px 12px", borderRadius: 2,
+                  background: "transparent", border: "1px solid var(--border)",
+                  color: "var(--text-dim)", padding: "6px 12px", borderRadius: 2,
                   cursor: "pointer", fontSize: 11, fontFamily: "var(--font-ui)",
                 }}
               >
                 ✕ Limpiar
               </button>
             )}
-            <span style={{ fontSize: 11, color: "#444", fontFamily: "var(--font-ui)", letterSpacing: "0.08em" }}>
+            <span style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "var(--font-ui)", letterSpacing: "0.08em" }}>
               {filtered.length} {filtered.length === 1 ? "reloj" : "relojes"}
             </span>
           </div>
@@ -284,13 +285,13 @@ export default function App() {
       {/* ── GRID ── */}
       <main style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 32px 80px" }}>
         {filtered.length === 0 ? (
-          <div style={{ textAlign: "center", padding: "100px 0", color: "#333" }}>
+          <div style={{ textAlign: "center", padding: "100px 0", color: "var(--text-muted)" }}>
             <div style={{ fontSize: 56, marginBottom: 16 }}>⌚</div>
             <p style={{ fontFamily: "var(--font-display)", fontSize: 20, fontStyle: "italic" }}>
               No hay relojes con esos filtros
             </p>
             <button onClick={resetFilters} style={{
-              marginTop: 20, background: "transparent", border: "1px solid #2a2a2a",
+              marginTop: 20, background: "transparent", border: "1px solid var(--border)",
               color: "var(--gold)", padding: "10px 24px", borderRadius: 2,
               cursor: "pointer", fontSize: 12, fontFamily: "var(--font-ui)", letterSpacing: "0.1em",
             }}>
@@ -325,7 +326,7 @@ export default function App() {
         borderTop: "1px solid var(--border)",
         padding: "36px 32px",
         textAlign: "center",
-        background: "#0a0a0a",
+        background: "var(--bg-card)",
       }}>
         {/* Social links */}
         <div style={{ display: "flex", justifyContent: "center", gap: 20, marginBottom: 20 }}>
@@ -349,7 +350,7 @@ export default function App() {
             {storeConfig.whatsapp.replace("506", "+506 ")}
           </a>
 
-          <span style={{ color: "#2a2a2a" }}>|</span>
+          <span style={{ color: "var(--border)" }}>|</span>
 
           {/* Instagram */}
           <a
@@ -377,13 +378,13 @@ export default function App() {
         <div style={{ borderTop: "1px solid #141414", paddingTop: 16 }}>
           <p style={{
             fontFamily: "var(--font-ui)", fontSize: 9,
-            letterSpacing: "0.25em", color: "#2a2a2a",
+            letterSpacing: "0.25em", color: "var(--text-muted)",
           }}>
             ◆ {storeConfig.name} · {storeConfig.tagline} · {new Date().getFullYear()} ◆
           </p>
           <p style={{
             fontFamily: "var(--font-display)", fontStyle: "italic",
-            fontSize: 11, color: "#222", marginTop: 6, letterSpacing: "0.04em",
+            fontSize: 11, color: "var(--text-muted)", marginTop: 6, letterSpacing: "0.04em",
           }}>
             Aceptamos efectivo y transferencia bancaria
           </p>

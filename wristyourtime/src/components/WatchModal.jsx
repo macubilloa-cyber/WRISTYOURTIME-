@@ -15,7 +15,7 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
   if (!watch) return null;
 
   const whatsappMsg = encodeURIComponent(
-    `${storeConfig.whatsappGreeting} *${watch.brand} ${watch.name}* ($${watch.price.toLocaleString()}). ¿Tienen disponibilidad?`
+    `${storeConfig.whatsappGreeting} *${watch.brand} ${watch.name}* (₡${watch.price.toLocaleString()}). ¿Tienen disponibilidad?`
   );
   const whatsappUrl = `https://wa.me/${storeConfig.whatsapp}?text=${whatsappMsg}`;
 
@@ -40,7 +40,7 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
       onClick={onClose}
       style={{
         position: "fixed", inset: 0, zIndex: 500,
-        background: "rgba(0,0,0,0.88)",
+        background: "rgba(30,25,20,0.55)",
         backdropFilter: "blur(8px)",
         display: "flex", alignItems: "center", justifyContent: "center",
         padding: 20, animation: "fadeIn 0.2s ease",
@@ -49,14 +49,14 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: "#111",
-          border: "1px solid #2a2a2a",
+          background: "var(--bg-card)",
+          border: "1px solid var(--border)",
           borderRadius: 3,
           maxWidth: 520, width: "100%",
           maxHeight: "92vh", overflowY: "auto",
           position: "relative",
           animation: "fadeUp 0.3s ease",
-          boxShadow: "0 40px 120px rgba(0,0,0,0.8)",
+          boxShadow: "0 40px 120px rgba(0,0,0,0.18)",
         }}
       >
         {/* Close */}
@@ -64,10 +64,11 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
           onClick={onClose}
           style={{
             position: "absolute", top: 16, right: 16, zIndex: 10,
-            background: "#1a1a1a", border: "1px solid #2a2a2a",
+            background: "var(--bg)", border: "1px solid var(--border)",
             borderRadius: "50%", width: 32, height: 32,
-            color: "#888", cursor: "pointer", fontSize: 14,
+            color: "var(--text-muted)", cursor: "pointer", fontSize: 14,
             display: "flex", alignItems: "center", justifyContent: "center",
+            transition: "border-color 0.2s, color 0.2s",
           }}
         >
           ✕
@@ -75,9 +76,9 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
 
         {/* Image */}
         <div style={{
-          height: 260, background: "linear-gradient(145deg, #141414, #0d0d0d)",
+          height: 260, background: "linear-gradient(145deg, #ede8e0, #e4ddd2)",
           display: "flex", alignItems: "center", justifyContent: "center",
-          overflow: "hidden", borderBottom: "1px solid #1a1a1a",
+          overflow: "hidden", borderBottom: "1px solid var(--border)",
           borderRadius: "3px 3px 0 0",
         }}>
           {watch.image ? (
@@ -95,7 +96,7 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
             {watch.tag ? (
               <span style={{
-                background: TAG_COLORS[watch.tag], color: "#000",
+                background: TAG_COLORS[watch.tag], color: "#fff",
                 padding: "3px 12px", fontSize: 10, fontWeight: 700,
                 letterSpacing: "0.12em", borderRadius: 1,
                 fontFamily: "var(--font-ui)",
@@ -107,7 +108,7 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
               onClick={() => onToggleFav(watch.id)}
               style={{
                 background: "none", border: "none", cursor: "pointer",
-                fontSize: 22, color: isFav ? "#ef4444" : "#333",
+                fontSize: 22, color: isFav ? "#ef4444" : "#ccc",
                 transition: "transform 0.2s",
               }}
             >
@@ -125,13 +126,14 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
           <h2 style={{
             fontSize: 28, fontWeight: 400, margin: "0 0 16px",
             lineHeight: 1.2, fontFamily: "var(--font-display)",
+            color: "var(--text)",
           }}>
             {watch.name}
           </h2>
 
           {/* Description */}
           <p style={{
-            fontSize: 15, color: "#aaa", lineHeight: 1.8,
+            fontSize: 15, color: "var(--text-dim)", lineHeight: 1.8,
             margin: "0 0 24px", fontFamily: "var(--font-display)",
             fontStyle: "italic",
           }}>
@@ -139,7 +141,7 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
           </p>
 
           {/* Specs */}
-          <div style={{ borderTop: "1px solid #1e1e1e", paddingTop: 20, marginBottom: 28 }}>
+          <div style={{ borderTop: "1px solid var(--border)", paddingTop: 20, marginBottom: 28 }}>
             <p style={{
               fontSize: 9, letterSpacing: "0.2em", color: "var(--text-muted)",
               fontFamily: "var(--font-ui)", marginBottom: 14,
@@ -149,10 +151,10 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
             {specs.map(([key, val]) => (
               <div key={key} style={{
                 display: "flex", justifyContent: "space-between",
-                padding: "9px 0", borderBottom: "1px solid #181818",
+                padding: "9px 0", borderBottom: "1px solid var(--border-light)",
                 fontSize: 13,
               }}>
-                <span style={{ color: "#555", fontFamily: "var(--font-ui)", letterSpacing: "0.04em" }}>
+                <span style={{ color: "var(--text-muted)", fontFamily: "var(--font-ui)", letterSpacing: "0.04em" }}>
                   {key}
                 </span>
                 <span style={{ color: "var(--text)", fontFamily: "var(--font-display)" }}>
@@ -174,10 +176,10 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
               fontSize: 36, color: "var(--gold)", fontWeight: 300,
               fontFamily: "var(--font-display)",
             }}>
-              ${watch.price.toLocaleString()}
+              ₡{watch.price.toLocaleString()}
             </span>
             <p style={{
-              fontSize: 11, color: "#444", fontFamily: "var(--font-display)",
+              fontSize: 11, color: "var(--text-muted)", fontFamily: "var(--font-display)",
               fontStyle: "italic", marginTop: 4,
             }}>
               Aceptamos efectivo y transferencia bancaria
@@ -191,7 +193,7 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
               onClick={handleAddToCart}
               style={{
                 width: "100%", padding: "13px",
-                background: added ? "#25D36622" : "var(--gold-dim)",
+                background: added ? "#25D36618" : "var(--gold-dim)",
                 border: `1px solid ${added ? "#25D366" : "var(--gold)"}`,
                 color: added ? "#25D366" : "var(--gold)",
                 borderRadius: 2, cursor: "pointer",

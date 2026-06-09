@@ -15,7 +15,7 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
   const whatsappUrl = (() => {
     const lines = cart.map(
       ({ watch, qty }) =>
-        `• ${watch.brand} ${watch.name} x${qty} — $${(watch.price * qty).toLocaleString()}`
+        `• ${watch.brand} ${watch.name} x${qty} — ₡${(watch.price * qty).toLocaleString()}`
     );
     const method = payment === "efectivo" ? "Efectivo" : "Transferencia bancaria";
     const msg = [
@@ -23,7 +23,7 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
       "",
       ...lines,
       "",
-      `*Total: $${total.toLocaleString()}*`,
+      `*Total: ₡${total.toLocaleString()}*`,
       `Método de pago: ${method}`,
       "",
       "¿Cómo coordinamos?",
@@ -36,7 +36,7 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
       onClick={onClose}
       style={{
         position: "fixed", inset: 0, zIndex: 600,
-        background: "rgba(0,0,0,0.78)",
+        background: "rgba(30,25,20,0.5)",
         backdropFilter: "blur(6px)",
         animation: "fadeIn 0.2s ease",
       }}
@@ -46,17 +46,17 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
         style={{
           position: "absolute", top: 0, right: 0, bottom: 0,
           width: "min(440px, 100vw)",
-          background: "#0e0e0e",
-          borderLeft: "1px solid #1e1e1e",
+          background: "var(--bg-card)",
+          borderLeft: "1px solid var(--border)",
           display: "flex", flexDirection: "column",
           animation: "slideInRight 0.32s cubic-bezier(.22,.68,0,1.2)",
-          boxShadow: "-20px 0 60px rgba(0,0,0,0.6)",
+          boxShadow: "-20px 0 60px rgba(0,0,0,0.12)",
         }}
       >
         {/* ── Header */}
         <div style={{
           padding: "24px 28px 20px",
-          borderBottom: "1px solid #1a1a1a",
+          borderBottom: "1px solid var(--border)",
           display: "flex", justifyContent: "space-between", alignItems: "center",
         }}>
           <div>
@@ -76,9 +76,9 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
           <button
             onClick={onClose}
             style={{
-              background: "#1a1a1a", border: "1px solid #2a2a2a",
+              background: "var(--bg)", border: "1px solid var(--border)",
               borderRadius: "50%", width: 36, height: 36,
-              color: "#888", cursor: "pointer", fontSize: 14,
+              color: "var(--text-muted)", cursor: "pointer", fontSize: 14,
               display: "flex", alignItems: "center", justifyContent: "center",
               transition: "border-color 0.2s, color 0.2s",
             }}
@@ -90,11 +90,11 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
         {/* ── Items */}
         <div style={{ flex: 1, overflowY: "auto", padding: "20px 28px" }}>
           {cart.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "64px 0", color: "#333" }}>
+            <div style={{ textAlign: "center", padding: "64px 0" }}>
               <div style={{ fontSize: 52, marginBottom: 14 }}>🛍</div>
               <p style={{
                 fontFamily: "var(--font-display)", fontStyle: "italic",
-                fontSize: 17, color: "#555",
+                fontSize: 17, color: "var(--text-muted)",
               }}>
                 Tu carrito está vacío
               </p>
@@ -103,13 +103,13 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
             cart.map(({ watch, qty }) => (
               <div key={watch.id} style={{
                 display: "flex", gap: 14, padding: "16px 0",
-                borderBottom: "1px solid #181818", alignItems: "flex-start",
+                borderBottom: "1px solid var(--border-light)", alignItems: "flex-start",
               }}>
                 {/* Thumbnail */}
                 <div style={{
                   width: 64, height: 64, flexShrink: 0,
-                  background: "linear-gradient(145deg, #141414, #0d0d0d)",
-                  border: "1px solid #1e1e1e", borderRadius: 2,
+                  background: "linear-gradient(145deg, #ede8e0, #e4ddd2)",
+                  border: "1px solid var(--border)", borderRadius: 2,
                   display: "flex", alignItems: "center", justifyContent: "center",
                   overflow: "hidden",
                 }}>
@@ -155,7 +155,7 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
                       fontSize: 16, color: "var(--gold)",
                       fontFamily: "var(--font-display)", fontWeight: 300,
                     }}>
-                      ${(watch.price * qty).toLocaleString()}
+                      ₡{(watch.price * qty).toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -164,12 +164,12 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
                 <button
                   onClick={() => onRemove(watch.id)}
                   style={{
-                    background: "none", border: "none", color: "#2e2e2e",
+                    background: "none", border: "none", color: "var(--border)",
                     cursor: "pointer", fontSize: 15, padding: "2px 4px",
                     transition: "color 0.2s", flexShrink: 0,
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = "#ef4444")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "#2e2e2e")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--border)")}
                 >
                   ✕
                 </button>
@@ -180,14 +180,14 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
 
         {/* ── Checkout footer */}
         {cart.length > 0 && (
-          <div style={{ padding: "20px 28px 32px", borderTop: "1px solid #1a1a1a" }}>
+          <div style={{ padding: "20px 28px 32px", borderTop: "1px solid var(--border)" }}>
             {/* Total */}
             <div style={{
               display: "flex", justifyContent: "space-between",
               alignItems: "baseline", marginBottom: 22,
             }}>
               <span style={{
-                fontSize: 10, color: "#555", letterSpacing: "0.18em",
+                fontSize: 10, color: "var(--text-muted)", letterSpacing: "0.18em",
                 fontFamily: "var(--font-ui)",
               }}>TOTAL</span>
               <span style={{
@@ -201,7 +201,7 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
             {/* Payment method */}
             <div style={{ marginBottom: 18 }}>
               <p style={{
-                fontSize: 9, color: "#555", letterSpacing: "0.18em",
+                fontSize: 9, color: "var(--text-muted)", letterSpacing: "0.18em",
                 fontFamily: "var(--font-ui)", marginBottom: 10,
               }}>
                 MÉTODO DE PAGO
@@ -217,8 +217,8 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
                     style={{
                       flex: 1, padding: "10px 12px",
                       background: payment === key ? "var(--gold-dim)" : "transparent",
-                      border: `1px solid ${payment === key ? "var(--gold)" : "#252525"}`,
-                      color: payment === key ? "var(--gold)" : "#555",
+                      border: `1px solid ${payment === key ? "var(--gold)" : "var(--border)"}`,
+                      color: payment === key ? "var(--gold)" : "var(--text-muted)",
                       borderRadius: 2, cursor: "pointer",
                       fontSize: 12, fontFamily: "var(--font-ui)",
                       transition: "all 0.2s",
@@ -229,7 +229,7 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
                 ))}
               </div>
               <p style={{
-                fontSize: 11, color: "#444", fontFamily: "var(--font-display)",
+                fontSize: 11, color: "var(--text-dim)", fontFamily: "var(--font-display)",
                 fontStyle: "italic", lineHeight: 1.55,
               }}>
                 {payment === "efectivo"
@@ -269,12 +269,12 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
               onClick={onClear}
               style={{
                 width: "100%", background: "transparent", border: "none",
-                color: "#2e2e2e", cursor: "pointer", fontSize: 11,
+                color: "var(--text-muted)", cursor: "pointer", fontSize: 11,
                 fontFamily: "var(--font-ui)", letterSpacing: "0.08em",
                 padding: "6px", transition: "color 0.2s",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#555")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#2e2e2e")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-dim)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
             >
               Vaciar carrito
             </button>
@@ -286,8 +286,8 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
 }
 
 const qtyBtnStyle = {
-  width: 26, height: 26, background: "#1a1a1a",
-  border: "1px solid #2a2a2a", borderRadius: 1,
-  color: "#888", cursor: "pointer", fontSize: 15,
+  width: 26, height: 26, background: "var(--bg)",
+  border: "1px solid var(--border)", borderRadius: 1,
+  color: "var(--text-muted)", cursor: "pointer", fontSize: 15,
   display: "flex", alignItems: "center", justifyContent: "center",
 };
