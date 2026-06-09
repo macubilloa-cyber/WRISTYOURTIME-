@@ -251,10 +251,10 @@ export default function App() {
           {/* Price range */}
           <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 170 }}>
             <span style={{ fontSize: 10, color: "var(--gold)", fontFamily: "var(--font-ui)", letterSpacing: "0.1em" }}>
-              HASTA ${maxPrice.toLocaleString()}
+              HASTA ₡{maxPrice.toLocaleString()}
             </span>
             <input
-              type="range" min={500} max={MAX_PRICE} step={100}
+              type="range" min={0} max={MAX_PRICE} step={5000}
               value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))}
               style={{ accentColor: "var(--gold)", cursor: "pointer" }}
             />

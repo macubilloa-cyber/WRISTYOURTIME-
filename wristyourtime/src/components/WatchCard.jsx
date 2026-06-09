@@ -136,7 +136,7 @@ export default function WatchCard({ watch, onSelect, onToggleFav, isFav, onToggl
             fontSize: 22, color: "var(--gold)", fontWeight: 300,
             fontFamily: "var(--font-display)", letterSpacing: "0.03em", flexShrink: 0,
           }}>
-            ${watch.price.toLocaleString()}
+            ₡{watch.price.toLocaleString()}
           </span>
 
           <div style={{ display: "flex", gap: 6, alignItems: "center" }}>

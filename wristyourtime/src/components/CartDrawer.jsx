@@ -15,7 +15,7 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
   const whatsappUrl = (() => {
     const lines = cart.map(
       ({ watch, qty }) =>
-        `• ${watch.brand} ${watch.name} x${qty} — $${(watch.price * qty).toLocaleString()}`
+        `• ${watch.brand} ${watch.name} x${qty} — ₡${(watch.price * qty).toLocaleString()}`
     );
     const method = payment === "efectivo" ? "Efectivo" : "Transferencia bancaria";
     const msg = [
@@ -23,7 +23,7 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
       "",
       ...lines,
       "",
-      `*Total: $${total.toLocaleString()}*`,
+      `*Total: ₡${total.toLocaleString()}*`,
       `Método de pago: ${method}`,
       "",
       "¿Cómo coordinamos?",
@@ -155,7 +155,7 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
                       fontSize: 16, color: "var(--gold)",
                       fontFamily: "var(--font-display)", fontWeight: 300,
                     }}>
-                      ${(watch.price * qty).toLocaleString()}
+                      ₡{(watch.price * qty).toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -194,7 +194,7 @@ export default function CartDrawer({ cart, onRemove, onUpdateQty, onClose, onCle
                 fontSize: 30, color: "var(--gold)",
                 fontFamily: "var(--font-display)", fontWeight: 300,
               }}>
-                ${total.toLocaleString()}
+                ₡{total.toLocaleString()}
               </span>
             </div>
 

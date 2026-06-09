@@ -15,7 +15,7 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
   if (!watch) return null;
 
   const whatsappMsg = encodeURIComponent(
-    `${storeConfig.whatsappGreeting} *${watch.brand} ${watch.name}* ($${watch.price.toLocaleString()}). ¿Tienen disponibilidad?`
+    `${storeConfig.whatsappGreeting} *${watch.brand} ${watch.name}* (₡${watch.price.toLocaleString()}). ¿Tienen disponibilidad?`
   );
   const whatsappUrl = `https://wa.me/${storeConfig.whatsapp}?text=${whatsappMsg}`;
 
@@ -174,7 +174,7 @@ export default function WatchModal({ watch, onClose, isFav, onToggleFav, onAddTo
               fontSize: 36, color: "var(--gold)", fontWeight: 300,
               fontFamily: "var(--font-display)",
             }}>
-              ${watch.price.toLocaleString()}
+              ₡{watch.price.toLocaleString()}
             </span>
             <p style={{
               fontSize: 11, color: "#444", fontFamily: "var(--font-display)",
