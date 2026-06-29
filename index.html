@@ -255,7 +255,7 @@ function filtered() {
   });
 }
 
-function fmtPrice(w) { return '$' + w.price.toLocaleString() + ' ' + w.currency; }
+function fmtPrice(w) { const sym = w.currency === 'CRC' ? '₡' : '$'; return sym + w.price.toLocaleString() + ' ' + w.currency; }
 
 function renderGrid() {
   const list = filtered();
