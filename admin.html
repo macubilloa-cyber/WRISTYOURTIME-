@@ -257,7 +257,14 @@ async function apiSave() {
     headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
     body: JSON.stringify({ watches })
   });
-  if (!res.ok) throw new Error('save');
+  if (!res.ok) {
+    let msg = 'Error al guardar (' + res.status + ')';
+    try {
+      const data = await res.json();
+      if (data.error) msg = data.error;
+    } catch (e) {}
+    throw new Error(msg);
+  }
   return res.json();
 }
 
@@ -399,7 +406,7 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
     document.getElementById('saveBar').classList.remove('show');
     showToast('Guardado. El catálogo se actualiza en ~1 minuto.');
   } catch (e) {
-    showToast('No se pudo guardar. Intenta de nuevo.', true);
+    showToast(e.message, true);
   } finally {
     btn.disabled = false;
     btn.textContent = 'Guardar cambios';
