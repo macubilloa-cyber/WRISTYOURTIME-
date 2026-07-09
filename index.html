@@ -140,11 +140,12 @@ body{font-family:var(--js);color:var(--ink);background:var(--surface);min-height
         <button class="wrt-filter-btn" data-filter="Invicta">Invicta</button>
         <button class="wrt-filter-btn" data-filter="Tissot">Tissot</button>
         <button class="wrt-filter-btn" data-filter="Citizen">Citizen</button>
+        <button class="wrt-filter-btn" data-filter="Seiko">Seiko</button>
         <button class="wrt-filter-btn" data-filter="favorite">❤ Favoritos</button>
       </div>
     </div>
     <div class="wrt-actions-row">
-      <span class="wrt-count" id="countLabel">5 piezas</span>
+      <span class="wrt-count" id="countLabel">Cargando...</span>
     </div>
     <div class="wrt-grid" id="watchGrid"></div>
     <div id="emptyState" class="wrt-empty" style="display:none">Sin resultados</div>
@@ -174,77 +175,19 @@ body{font-family:var(--js);color:var(--ink);background:var(--surface);min-height
 
 <script>
 const WHATSAPP = '50687565911';
-const CDN = 'https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/';
 
-const watches = [
-  {
-    id: 1,
-    brand: 'Invicta',
-    name: 'Pro Diver',
-    ref: '8929OB',
-    movement: 'Automático NH35A',
-    dial: 'Negro con índices dorados',
-    material: 'Acero chapado en oro 23kt',
-    price: 58000,
-    currency: 'CRC',
-    imgs: [
-      CDN + 'IMG_0332_lishmf',
-      CDN + 'IMG_0334_tzjrsh'
-    ]
-  },
-  {
-    id: 2,
-    brand: 'Invicta',
-    name: 'Pro Diver',
-    ref: '8926OB',
-    movement: 'Automático NH35A',
-    dial: 'Negro con bisel acero',
-    material: 'Acero inoxidable',
-    price: 58000,
-    currency: 'CRC',
-    imgs: [
-      CDN + 'C2B1AC90-46A4-4774-A541-16F8B6030A2D_oigmmr',
-      CDN + 'Imagen_1-7-26_a_las_11.38_a._m._h1xohe',
-      CDN + 'Imagen_1-7-26_a_las_11.41_a._m._ublavy'
-    ]
-  },
-  {
-    id: 3,
-    brand: 'Tissot',
-    name: 'PRX',
-    ref: 'T137.410.11.041.00',
-    movement: 'Cuarzo',
-    dial: 'Azul',
-    material: 'Acero inoxidable',
-    price: 475,
-    currency: 'USD',
-    imgs: []
-  },
-  {
-    id: 4,
-    brand: 'Citizen',
-    name: 'Tsuyosa',
-    ref: 'NJ0151-88M',
-    movement: 'Automático',
-    dial: 'Azul hielo',
-    material: 'Acero inoxidable',
-    price: 180,
-    currency: 'USD',
-    imgs: []
-  },
-  {
-    id: 5,
-    brand: 'Citizen',
-    name: 'Tsuyosa',
-    ref: 'NJ0150-81L',
-    movement: 'Automático',
-    dial: 'Azul profundo',
-    material: 'Acero inoxidable',
-    price: 175,
-    currency: 'USD',
-    imgs: []
+let watches = [];
+
+async function loadInventory() {
+  try {
+    const res = await fetch('./inventario.json?t=' + Date.now());
+    const data = await res.json();
+    watches = (data.watches || []).filter(w => w.active !== false);
+  } catch (e) {
+    watches = [];
   }
-];
+  renderGrid();
+}
 
 let favorites = new Set();
 let compareSet = new Set();
@@ -467,7 +410,7 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-renderGrid();
+loadInventory();
 </script>
 </body>
 </html>
