@@ -1,0 +1,123 @@
+{
+  "watches": [
+    {
+      "id": 1,
+      "sku": "IN8929OB",
+      "brand": "Invicta",
+      "name": "Pro Diver",
+      "ref": "8929OB",
+      "movement": "Automático NH35A",
+      "dial": "Negro con índices dorados",
+      "material": "Acero chapado en oro 23kt",
+      "price": 58000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": [
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/IMG_0332_lishmf",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/IMG_0334_tzjrsh"
+      ]
+    },
+    {
+      "id": 2,
+      "sku": "IN8926OB",
+      "brand": "Invicta",
+      "name": "Pro Diver",
+      "ref": "8926OB",
+      "movement": "Automático NH35A",
+      "dial": "Negro con bisel acero",
+      "material": "Acero inoxidable",
+      "price": 58000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": [
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/C2B1AC90-46A4-4774-A541-16F8B6030A2D_oigmmr",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/Imagen_1-7-26_a_las_11.38_a._m._h1xohe",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/Imagen_1-7-26_a_las_11.41_a._m._ublavy"
+      ]
+    },
+    {
+      "id": 3,
+      "sku": "TIT137",
+      "brand": "Tissot",
+      "name": "PRX",
+      "ref": "T137.410.11.041.00",
+      "movement": "Cuarzo",
+      "dial": "Azul",
+      "material": "Acero inoxidable",
+      "price": 188000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": []
+    },
+    {
+      "id": 4,
+      "sku": "CZNJ0151-88M",
+      "brand": "Citizen",
+      "name": "Tsuyosa",
+      "ref": "NJ0151-88M",
+      "movement": "Automático",
+      "dial": "Azul hielo",
+      "material": "Acero inoxidable",
+      "price": 155000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": []
+    },
+    {
+      "id": 5,
+      "sku": "CZNJ0150-81L",
+      "brand": "Citizen",
+      "name": "Tsuyosa",
+      "ref": "NJ0150-81L",
+      "movement": "Automático",
+      "dial": "Azul profundo",
+      "material": "Acero inoxidable",
+      "price": 155000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": []
+    },
+    {
+      "id": 6,
+      "sku": "CZNJ0151-53M",
+      "brand": "Citizen",
+      "name": "Tsuyosa",
+      "ref": "NJ0151-53M",
+      "movement": "Automático (Cal. 8210)",
+      "dial": "Azul cielo",
+      "material": "Acero inoxidable",
+      "price": 155000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": []
+    },
+    {
+      "id": 7,
+      "sku": "SE-SNKE51",
+      "brand": "Seiko",
+      "name": "5",
+      "ref": "SNKE51",
+      "movement": "Automático (Cal. 7S36)",
+      "dial": "Azul",
+      "material": "Acero inoxidable",
+      "price": 90000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": []
+    },
+    {
+      "id": 8,
+      "sku": "SE-SNKK71",
+      "brand": "Seiko",
+      "name": "5",
+      "ref": "SNKK71",
+      "movement": "Automático (Cal. 7S36)",
+      "dial": "Negro",
+      "material": "Acero inoxidable",
+      "price": 90000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": []
+    }
+  ]
+}

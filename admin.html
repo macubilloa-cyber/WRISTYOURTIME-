@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wrist Your Time — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --gold:#B8960C;
+  --ink:#1a1a1a;
+  --muted:#888;
+  --border:#e0e0e0;
+  --border-strong:#bbb;
+  --card:#fff;
+  --surface:#f7f6f3;
+  --good:#3a7d44;
+  --bad:#b5432b;
+  --cg:'Cormorant Garamond',serif;
+  --js:'Josefin Sans',sans-serif;
+}
+@media(prefers-color-scheme:dark){
+  :root{--ink:#f0ede8;--muted:#999;--border:#2a2a2a;--border-strong:#444;--card:#1a1a1a;--surface:#111;}
+}
+body{font-family:var(--js);color:var(--ink);background:var(--surface);min-height:100vh;}
+a{color:inherit;}
+
+/* HEADER */
+.adm-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;background:var(--card);border-bottom:0.5px solid var(--border);}
+.adm-logo{font-family:var(--cg);font-size:22px;font-weight:300;letter-spacing:0.15em;}
+.adm-logo span{color:var(--gold);}
+.adm-logo small{display:block;font-family:var(--js);font-size:8px;letter-spacing:0.3em;color:var(--muted);text-transform:uppercase;margin-top:2px;}
+.adm-logout{font-family:var(--js);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);background:none;border:0.5px solid var(--border-strong);padding:8px 14px;cursor:pointer;}
+.adm-logout:hover{color:var(--ink);border-color:var(--ink);}
+
+/* LOGIN */
+#loginView{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;}
+.adm-login-box{width:100%;max-width:340px;text-align:center;}
+.adm-login-box .adm-logo{font-size:28px;margin-bottom:6px;}
+.adm-login-sub{font-size:9px;letter-spacing:0.3em;color:var(--muted);text-transform:uppercase;margin-bottom:2.5rem;}
+.adm-input{width:100%;font-family:var(--js);font-size:13px;letter-spacing:0.05em;padding:12px 14px;border:0.5px solid var(--border-strong);background:var(--card);color:var(--ink);outline:none;margin-bottom:12px;}
+.adm-input:focus{border-color:var(--gold);}
+.adm-btn{width:100%;font-family:var(--js);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;padding:13px;background:var(--ink);color:var(--card);border:none;cursor:pointer;transition:opacity 0.2s;}
+.adm-btn:hover{opacity:0.85;}
+.adm-btn:disabled{opacity:0.5;cursor:default;}
+.adm-error{font-size:11px;color:var(--bad);margin-top:10px;min-height:14px;}
+
+/* DASHBOARD */
+#dashView{display:none;}
+.adm-wrap{max-width:1100px;margin:0 auto;padding:1.5rem;}
+
+.adm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);border:0.5px solid var(--border);margin-bottom:2rem;}
+.adm-stat{background:var(--card);padding:16px;}
+.adm-stat-label{font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.adm-stat-val{font-family:var(--cg);font-size:24px;font-weight:300;}
+
+.adm-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;gap:10px;flex-wrap:wrap;}
+.adm-toolbar-title{font-family:var(--cg);font-size:22px;font-weight:300;}
+.adm-toolbar-actions{display:flex;gap:8px;}
+.adm-btn-sm{font-family:var(--js);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:10px 16px;border:0.5px solid var(--border-strong);background:transparent;color:var(--ink);cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.adm-btn-sm:hover{border-color:var(--gold);color:var(--gold);}
+.adm-btn-primary{background:var(--gold);border-color:var(--gold);color:#fff;}
+.adm-btn-primary:hover{opacity:0.85;color:#fff;}
+.adm-btn-primary:disabled{opacity:0.4;cursor:default;}
+
+.adm-table-wrap{background:var(--card);border:0.5px solid var(--border);overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:820px;}
+th{text-align:left;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:0.5px solid var(--border-strong);white-space:nowrap;}
+td{padding:10px 12px;border-bottom:0.5px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr.inactive{opacity:0.45;}
+.adm-cell-brand{font-family:var(--cg);font-size:15px;line-height:1.2;}
+.adm-cell-ref{font-size:9px;color:var(--muted);letter-spacing:0.05em;}
+.adm-margin-pos{color:var(--good);}
+.adm-margin-unknown{color:var(--muted);font-style:italic;}
+.adm-toggle{width:16px;height:16px;cursor:pointer;accent-color:var(--gold);}
+.adm-row-actions{display:flex;gap:6px;}
+.adm-icon-btn{width:28px;height:28px;border:0.5px solid var(--border-strong);background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all 0.2s;}
+.adm-icon-btn:hover{color:var(--ink);border-color:var(--ink);}
+.adm-icon-btn.danger:hover{color:var(--bad);border-color:var(--bad);}
+
+.adm-empty{text-align:center;padding:3rem 1rem;color:var(--muted);font-family:var(--cg);font-size:18px;font-style:italic;}
+
+/* SAVE BAR */
+.adm-savebar{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--ink);color:var(--card);padding:14px 1.5rem;align-items:center;justify-content:space-between;z-index:200;}
+.adm-savebar.show{display:flex;}
+.adm-savebar-label{font-size:10px;letter-spacing:0.1em;}
+.adm-savebar-actions{display:flex;gap:10px;}
+.adm-savebar .adm-btn-sm{border-color:rgba(255,255,255,0.4);color:var(--card);}
+.adm-savebar .adm-btn-primary{background:var(--gold);border-color:var(--gold);}
+
+/* EDIT DRAWER */
+.adm-drawer-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;align-items:flex-start;justify-content:center;overflow-y:auto;padding:2.5rem 1rem;}
+.adm-drawer-backdrop.open{display:flex;}
+.adm-drawer{background:var(--card);width:100%;max-width:480px;border:0.5px solid var(--border-strong);padding:1.75rem;}
+.adm-drawer h2{font-family:var(--cg);font-size:22px;font-weight:300;margin-bottom:1.25rem;}
+.adm-field{margin-bottom:14px;}
+.adm-field label{display:block;font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.adm-field input,.adm-field textarea,.adm-field select{width:100%;font-family:var(--js);font-size:12px;padding:9px 11px;border:0.5px solid var(--border-strong);background:var(--surface);color:var(--ink);outline:none;}
+.adm-field input:focus,.adm-field textarea:focus,.adm-field select:focus{border-color:var(--gold);}
+.adm-field textarea{resize:vertical;min-height:60px;font-size:10px;}
+.adm-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.adm-drawer-actions{display:flex;gap:10px;margin-top:1.25rem;}
+.adm-drawer-actions .adm-btn-sm,.adm-drawer-actions .adm-btn-primary{flex:1;}
+.adm-hint{font-size:9px;color:var(--muted);margin-top:4px;line-height:1.4;}
+
+.adm-toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--card);font-family:var(--js);font-size:10px;letter-spacing:0.1em;padding:10px 20px;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:9999;}
+.adm-toast.show{opacity:1;}
+.adm-toast.error{background:var(--bad);}
+</style>
+</head>
+<body>
+
+<div id="loginView">
+  <div class="adm-login-box">
+    <div class="adm-logo">WRIST <span>YOUR</span> TIME</div>
+    <div class="adm-login-sub">Panel Admin · Inventario</div>
+    <input type="password" class="adm-input" id="pwInput" placeholder="Contraseña" autocomplete="off">
+    <button class="adm-btn" id="loginBtn">Entrar</button>
+    <div class="adm-error" id="loginError"></div>
+  </div>
+</div>
+
+<div id="dashView">
+  <header class="adm-header">
+    <div class="adm-logo">WRIST <span>YOUR</span> TIME<small>Panel Admin</small></div>
+    <button class="adm-logout" id="logoutBtn">Salir</button>
+  </header>
+
+  <div class="adm-wrap">
+    <div class="adm-stats" id="statsRow"></div>
+
+    <div class="adm-toolbar">
+      <div class="adm-toolbar-title">Inventario</div>
+      <div class="adm-toolbar-actions">
+        <button class="adm-btn-sm" id="refreshBtn"><i class="ti ti-refresh"></i> Actualizar</button>
+        <button class="adm-btn-sm adm-btn-primary" id="addBtn">+ Agregar reloj</button>
+      </div>
+    </div>
+
+    <div class="adm-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Reloj</th>
+            <th>SKU</th>
+            <th>Costo</th>
+            <th>Precio</th>
+            <th>Margen</th>
+            <th>Stock</th>
+            <th>Activo</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div class="adm-empty" id="tableEmpty" style="display:none">Sin relojes todavía</div>
+  </div>
+</div>
+
+<div class="adm-savebar" id="saveBar">
+  <span class="adm-savebar-label" id="saveBarLabel">Tienes cambios sin guardar</span>
+  <div class="adm-savebar-actions">
+    <button class="adm-btn-sm" id="discardBtn">Descartar</button>
+    <button class="adm-btn-sm adm-btn-primary" id="saveBtn">Guardar cambios</button>
+  </div>
+</div>
+
+<div class="adm-drawer-backdrop" id="drawerBackdrop">
+  <div class="adm-drawer">
+    <h2 id="drawerTitle">Editar reloj</h2>
+    <form id="editForm">
+      <div class="adm-row2">
+        <div class="adm-field"><label>Marca</label><input type="text" id="f_brand" required></div>
+        <div class="adm-field"><label>Modelo</label><input type="text" id="f_name" required></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>Referencia</label><input type="text" id="f_ref" required></div>
+        <div class="adm-field"><label>SKU</label><input type="text" id="f_sku" required></div>
+      </div>
+      <div class="adm-field"><label>Movimiento</label><input type="text" id="f_movement" required></div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>Esfera</label><input type="text" id="f_dial" required></div>
+        <div class="adm-field"><label>Material</label><input type="text" id="f_material" required></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>Costo (₡)</label><input type="number" id="f_cost" min="0" step="1000" placeholder="—"></div>
+        <div class="adm-field"><label>Precio venta (₡)</label><input type="number" id="f_price" min="0" step="1000" required></div>
+      </div>
+      <div class="adm-row2">
+        <div class="adm-field"><label>Stock</label><input type="number" id="f_stock" min="0" step="1" value="0"></div>
+        <div class="adm-field">
+          <label>Visible en catálogo</label>
+          <select id="f_active"><option value="true">Sí</option><option value="false">No</option></select>
+        </div>
+      </div>
+      <div class="adm-field">
+        <label>Fotos (una URL de Cloudinary por línea)</label>
+        <textarea id="f_imgs" placeholder="https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/..."></textarea>
+        <div class="adm-hint">Déjalo vacío si todavía no hay fotos reales — se mostrará el ícono de reloj como marcador.</div>
+      </div>
+      <div class="adm-drawer-actions">
+        <button type="button" class="adm-btn-sm" id="cancelEditBtn">Cancelar</button>
+        <button type="submit" class="adm-btn-sm adm-btn-primary">Listo</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="adm-toast" id="toast"></div>
+
+<script>
+const FN_URL = '/.netlify/functions/admin-data';
+
+let password = sessionStorage.getItem('wrt_admin_pw') || '';
+let watches = [];
+let dirty = false;
+let editingId = null;
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.toggle('error', !!isError);
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+function crc(n) {
+  if (n === null || n === undefined || n === '') return '—';
+  return '₡' + Number(n).toLocaleString();
+}
+
+async function apiGet() {
+  const res = await fetch(FN_URL, { headers: { 'x-admin-password': password } });
+  if (res.status === 401) throw new Error('401');
+  if (!res.ok) throw new Error('load');
+  return res.json();
+}
+
+async function apiSave() {
+  const res = await fetch(FN_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+    body: JSON.stringify({ watches })
+  });
+  if (!res.ok) throw new Error('save');
+  return res.json();
+}
+
+// ---------- LOGIN ----------
+document.getElementById('loginBtn').addEventListener('click', doLogin);
+document.getElementById('pwInput').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+async function doLogin() {
+  const input = document.getElementById('pwInput');
+  const err = document.getElementById('loginError');
+  const pw = input.value.trim();
+  if (!pw) return;
+  password = pw;
+  err.textContent = '';
+  document.getElementById('loginBtn').disabled = true;
+  document.getElementById('loginBtn').textContent = 'Entrando...';
+  try {
+    const data = await apiGet();
+    watches = data.watches || [];
+    sessionStorage.setItem('wrt_admin_pw', password);
+    document.getElementById('loginView').style.display = 'none';
+    document.getElementById('dashView').style.display = 'block';
+    renderAll();
+  } catch (e) {
+    err.textContent = e.message === '401' ? 'Contraseña incorrecta.' : 'No se pudo conectar. Intenta de nuevo.';
+  } finally {
+    document.getElementById('loginBtn').disabled = false;
+    document.getElementById('loginBtn').textContent = 'Entrar';
+  }
+}
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem('wrt_admin_pw');
+  location.reload();
+});
+
+// Auto-login if password already in this session
+(async function tryAutoLogin() {
+  if (!password) return;
+  try {
+    const data = await apiGet();
+    watches = data.watches || [];
+    document.getElementById('loginView').style.display = 'none';
+    document.getElementById('dashView').style.display = 'block';
+    renderAll();
+  } catch (e) {
+    password = '';
+    sessionStorage.removeItem('wrt_admin_pw');
+  }
+})();
+
+// ---------- RENDER ----------
+function renderAll() {
+  renderStats();
+  renderTable();
+}
+
+function renderStats() {
+  const active = watches.filter(w => w.active !== false);
+  const totalStock = watches.reduce((s, w) => s + (Number(w.stock) || 0), 0);
+  const invested = watches.reduce((s, w) => s + ((w.cost || 0) * (Number(w.stock) || 0)), 0);
+  const potentialMargin = watches.reduce((s, w) => {
+    if (w.cost === null || w.cost === undefined) return s;
+    return s + ((w.price - w.cost) * (Number(w.stock) || 0));
+  }, 0);
+  const stats = [
+    ['Piezas activas', active.length],
+    ['Unidades en stock', totalStock],
+    ['Invertido en stock', crc(invested)],
+    ['Margen potencial (stock)', crc(potentialMargin)]
+  ];
+  document.getElementById('statsRow').innerHTML = stats.map(([label, val]) => `
+    <div class="adm-stat"><div class="adm-stat-label">${label}</div><div class="adm-stat-val">${val}</div></div>
+  `).join('');
+}
+
+function renderTable() {
+  const body = document.getElementById('tableBody');
+  const empty = document.getElementById('tableEmpty');
+  if (!watches.length) { body.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  const sorted = [...watches].sort((a, b) => (a.brand + a.name).localeCompare(b.brand + b.name));
+  body.innerHTML = sorted.map(w => {
+    const margin = (w.cost !== null && w.cost !== undefined) ? (w.price - w.cost) : null;
+    const marginPct = margin !== null && w.cost ? Math.round((margin / w.cost) * 100) : null;
+    return `
+    <tr class="${w.active === false ? 'inactive' : ''}">
+      <td><div class="adm-cell-brand">${w.brand} ${w.name}</div><div class="adm-cell-ref">${w.ref}</div></td>
+      <td class="adm-cell-ref">${w.sku || '—'}</td>
+      <td>${crc(w.cost)}</td>
+      <td>${crc(w.price)}</td>
+      <td>${margin === null ? '<span class="adm-margin-unknown">falta costo</span>' : `<span class="adm-margin-pos">${crc(margin)} (${marginPct}%)</span>`}</td>
+      <td>${Number(w.stock) || 0}</td>
+      <td><input type="checkbox" class="adm-toggle" data-toggle="${w.id}" ${w.active !== false ? 'checked' : ''}></td>
+      <td>
+        <div class="adm-row-actions">
+          <button class="adm-icon-btn" data-edit="${w.id}" aria-label="Editar"><i class="ti ti-pencil"></i></button>
+          <button class="adm-icon-btn danger" data-del="${w.id}" aria-label="Eliminar"><i class="ti ti-trash"></i></button>
+        </div>
+      </td>
+    </tr>
+  `; }).join('');
+
+  body.querySelectorAll('[data-toggle]').forEach(el => el.addEventListener('change', () => {
+    const id = +el.dataset.toggle;
+    const w = watches.find(x => x.id === id);
+    w.active = el.checked;
+    markDirty();
+    renderStats();
+  }));
+  body.querySelectorAll('[data-edit]').forEach(el => el.addEventListener('click', () => openEdit(+el.dataset.edit)));
+  body.querySelectorAll('[data-del]').forEach(el => el.addEventListener('click', () => deleteWatch(+el.dataset.del)));
+}
+
+// ---------- DIRTY / SAVE ----------
+function markDirty() {
+  dirty = true;
+  document.getElementById('saveBar').classList.add('show');
+}
+
+document.getElementById('discardBtn').addEventListener('click', async () => {
+  dirty = false;
+  document.getElementById('saveBar').classList.remove('show');
+  try {
+    const data = await apiGet();
+    watches = data.watches || [];
+    renderAll();
+    showToast('Cambios descartados');
+  } catch (e) {}
+});
+
+document.getElementById('saveBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = 'Guardando...';
+  try {
+    await apiSave();
+    dirty = false;
+    document.getElementById('saveBar').classList.remove('show');
+    showToast('Guardado. El catálogo se actualiza en ~1 minuto.');
+  } catch (e) {
+    showToast('No se pudo guardar. Intenta de nuevo.', true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Guardar cambios';
+  }
+});
+
+document.getElementById('refreshBtn').addEventListener('click', async () => {
+  try {
+    const data = await apiGet();
+    watches = data.watches || [];
+    dirty = false;
+    document.getElementById('saveBar').classList.remove('show');
+    renderAll();
+    showToast('Inventario actualizado');
+  } catch (e) {
+    showToast('No se pudo actualizar', true);
+  }
+});
+
+// ---------- EDIT / ADD ----------
+document.getElementById('addBtn').addEventListener('click', () => openEdit(null));
+document.getElementById('cancelEditBtn').addEventListener('click', closeEdit);
+document.getElementById('drawerBackdrop').addEventListener('click', e => { if (e.target === e.currentTarget) closeEdit(); });
+
+function openEdit(id) {
+  editingId = id;
+  const w = id ? watches.find(x => x.id === id) : null;
+  document.getElementById('drawerTitle').textContent = w ? 'Editar reloj' : 'Agregar reloj';
+  document.getElementById('f_brand').value = w ? w.brand : '';
+  document.getElementById('f_name').value = w ? w.name : '';
+  document.getElementById('f_ref').value = w ? w.ref : '';
+  document.getElementById('f_sku').value = w ? (w.sku || '') : '';
+  document.getElementById('f_movement').value = w ? w.movement : '';
+  document.getElementById('f_dial').value = w ? w.dial : '';
+  document.getElementById('f_material').value = w ? w.material : '';
+  document.getElementById('f_cost').value = (w && w.cost !== null && w.cost !== undefined) ? w.cost : '';
+  document.getElementById('f_price').value = w ? w.price : '';
+  document.getElementById('f_stock').value = w ? (Number(w.stock) || 0) : 0;
+  document.getElementById('f_active').value = w ? String(w.active !== false) : 'true';
+  document.getElementById('f_imgs').value = w ? (w.imgs || []).join('\n') : '';
+  document.getElementById('drawerBackdrop').classList.add('open');
+}
+
+function closeEdit() {
+  document.getElementById('drawerBackdrop').classList.remove('open');
+  editingId = null;
+}
+
+document.getElementById('editForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const imgs = document.getElementById('f_imgs').value.split('\n').map(s => s.trim()).filter(Boolean);
+  const costRaw = document.getElementById('f_cost').value;
+  const payload = {
+    brand: document.getElementById('f_brand').value.trim(),
+    name: document.getElementById('f_name').value.trim(),
+    ref: document.getElementById('f_ref').value.trim(),
+    sku: document.getElementById('f_sku').value.trim(),
+    movement: document.getElementById('f_movement').value.trim(),
+    dial: document.getElementById('f_dial').value.trim(),
+    material: document.getElementById('f_material').value.trim(),
+    cost: costRaw === '' ? null : Number(costRaw),
+    price: Number(document.getElementById('f_price').value),
+    currency: 'CRC',
+    stock: Number(document.getElementById('f_stock').value) || 0,
+    active: document.getElementById('f_active').value === 'true',
+    imgs
+  };
+
+  if (editingId) {
+    const w = watches.find(x => x.id === editingId);
+    Object.assign(w, payload);
+  } else {
+    const nextId = watches.length ? Math.max(...watches.map(w => w.id)) + 1 : 1;
+    watches.push({ id: nextId, ...payload });
+  }
+  markDirty();
+  renderAll();
+  closeEdit();
+});
+
+function deleteWatch(id) {
+  const w = watches.find(x => x.id === id);
+  if (!w) return;
+  if (!confirm(`¿Eliminar "${w.brand} ${w.name} ${w.ref}" del catálogo?`)) return;
+  watches = watches.filter(x => x.id !== id);
+  markDirty();
+  renderAll();
+}
+</script>
+</body>
+</html>

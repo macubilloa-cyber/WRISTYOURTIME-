@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wrist Your Time — Catálogo de Relojes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --gold:#B8960C;
+  --ink:#1a1a1a;
+  --muted:#888;
+  --border:#e0e0e0;
+  --border-strong:#bbb;
+  --card:#fff;
+  --surface:#f7f6f3;
+  --cg:'Cormorant Garamond',serif;
+  --js:'Josefin Sans',sans-serif;
+}
+@media(prefers-color-scheme:dark){
+  :root{--ink:#f0ede8;--muted:#888;--border:#2a2a2a;--border-strong:#444;--card:#1a1a1a;--surface:#111;}
+}
+body{font-family:var(--js);color:var(--ink);background:var(--surface);min-height:100vh;}
+.wrt-header{text-align:center;padding:2.5rem 1rem 2rem;border-bottom:0.5px solid var(--border);background:var(--card);}
+.wrt-logo{font-family:var(--cg);font-size:32px;font-weight:300;letter-spacing:0.2em;}
+.wrt-logo span{color:var(--gold);}
+.wrt-tagline{font-size:9px;letter-spacing:0.35em;color:var(--muted);text-transform:uppercase;margin-top:5px;}
+.container{max-width:480px;margin:0 auto;padding:0;}
+.wrt-controls{padding:1.25rem 1rem 0.5rem;background:var(--card);border-bottom:0.5px solid var(--border);}
+.wrt-search{width:100%;font-family:var(--js);font-size:12px;letter-spacing:0.08em;padding:10px 14px;border:0.5px solid var(--border-strong);background:var(--surface);color:var(--ink);outline:none;margin-bottom:10px;}
+.wrt-search:focus{border-color:var(--gold);}
+.wrt-search::placeholder{color:var(--muted);}
+.wrt-filters{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:1rem;}
+.wrt-filter-btn{font-family:var(--js);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:6px 12px;border:0.5px solid var(--border-strong);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;}
+.wrt-filter-btn.active,.wrt-filter-btn:hover{background:var(--ink);color:var(--card);border-color:var(--ink);}
+.wrt-actions-row{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 1rem;background:var(--surface);}
+.wrt-count{font-size:10px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;}
+.wrt-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--border);margin:0;}
+.wrt-card{background:var(--card);cursor:pointer;position:relative;}
+.wrt-card-placeholder{width:100%;aspect-ratio:3/4;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface);gap:8px;}
+.wrt-watch-icon{font-size:36px;color:var(--muted);opacity:0.3;}
+.wrt-card-placeholder-label{font-size:8px;letter-spacing:0.15em;color:var(--muted);text-transform:uppercase;}
+.wrt-card-img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;}
+.wrt-card-overlay{position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:4px;opacity:0;transition:opacity 0.2s;}
+.wrt-card:hover .wrt-card-overlay{opacity:1;}
+.wrt-fav-btn,.wrt-compare-btn{width:30px;height:30px;border:0.5px solid rgba(255,255,255,0.6);background:rgba(0,0,0,0.5);color:#fff;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.wrt-fav-btn:hover,.wrt-fav-btn.active{background:rgba(184,150,12,0.9);border-color:var(--gold);}
+.wrt-compare-btn:hover,.wrt-compare-btn.active{background:rgba(184,150,12,0.9);border-color:var(--gold);}
+.wrt-card-info{padding:10px 10px 4px;}
+.wrt-card-brand{font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+.wrt-card-name{font-family:var(--cg);font-size:16px;font-weight:400;line-height:1.2;margin-bottom:3px;}
+.wrt-card-ref{font-size:9px;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px;}
+.wrt-card-price{font-family:var(--cg);font-size:18px;font-weight:300;}
+.wrt-cta{padding:8px 10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.wrt-btn-wa{font-family:var(--js);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:9px 6px;background:var(--ink);color:var(--card);border:none;cursor:pointer;transition:opacity 0.2s;}
+.wrt-btn-wa:hover{opacity:0.8;}
+.wrt-btn-detail{font-family:var(--js);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:9px 6px;background:transparent;color:var(--ink);border:0.5px solid var(--border-strong);cursor:pointer;transition:all 0.2s;}
+.wrt-btn-detail:hover{border-color:var(--gold);color:var(--gold);}
+.wrt-empty{text-align:center;padding:4rem 1rem;color:var(--muted);font-family:var(--cg);font-size:20px;font-weight:300;font-style:italic;}
+
+/* MODAL */
+.wrt-modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;align-items:center;justify-content:center;}
+.wrt-modal-backdrop.open{display:flex;}
+.wrt-modal{background:var(--card);width:95%;max-width:620px;max-height:95vh;overflow-y:auto;position:relative;border:0.5px solid var(--border-strong);}
+.wrt-modal-close{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.4);border:none;color:#fff;cursor:pointer;font-size:16px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;z-index:10;}
+
+/* CARRUSEL */
+.wrt-carousel{position:relative;overflow:hidden;background:var(--surface);touch-action:pan-y;}
+.wrt-carousel-track{display:flex;transition:transform 0.35s cubic-bezier(.4,0,.2,1);}
+.wrt-carousel-slide{min-width:100%;aspect-ratio:4/3;overflow:hidden;}
+.wrt-carousel-slide img{width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none;}
+.wrt-carousel-prev,.wrt-carousel-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.35);border:none;color:#fff;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;font-size:14px;transition:background 0.2s;}
+.wrt-carousel-prev{left:8px;}
+.wrt-carousel-next{right:8px;}
+.wrt-carousel-prev:hover,.wrt-carousel-next:hover{background:rgba(184,150,12,0.8);}
+.wrt-carousel-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2;}
+.wrt-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.5);border:none;cursor:pointer;padding:0;transition:background 0.2s;}
+.wrt-dot.active{background:#fff;}
+
+/* ZOOM */
+.wrt-zoom-wrap{position:relative;}
+.wrt-zoom-lens{display:none;position:absolute;border:1.5px solid var(--gold);background:rgba(184,150,12,0.08);pointer-events:none;}
+.wrt-zoom-result{display:none;position:absolute;top:0;right:-102%;width:100%;aspect-ratio:4/3;border:0.5px solid var(--border-strong);background:var(--card);background-repeat:no-repeat;z-index:10;box-shadow:0 8px 32px rgba(0,0,0,0.18);}
+@media(max-width:540px){.wrt-zoom-result{display:none!important;}.wrt-carousel-prev,.wrt-carousel-next{display:none;}}
+
+.wrt-modal-body{padding:1.5rem;}
+.wrt-modal-brand{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.wrt-modal-name{font-family:var(--cg);font-size:24px;font-weight:300;line-height:1.2;margin-bottom:4px;}
+.wrt-modal-ref{font-size:10px;letter-spacing:0.1em;color:var(--muted);margin-bottom:1rem;}
+.wrt-modal-price{font-family:var(--cg);font-size:28px;font-weight:300;margin-bottom:1.25rem;}
+.wrt-modal-specs{border-top:0.5px solid var(--border);padding-top:1rem;margin-bottom:1.25rem;}
+.wrt-modal-spec{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:0.5px solid var(--border);font-size:11px;}
+.wrt-modal-spec-label{color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+.wrt-modal-spec-val{font-family:var(--cg);font-size:14px;}
+.wrt-modal-wa{width:100%;font-family:var(--js);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;padding:14px;background:var(--ink);color:var(--card);border:none;cursor:pointer;margin-top:0.5rem;transition:opacity 0.2s;}
+.wrt-modal-wa:hover{opacity:0.8;}
+
+/* COMPARE BAR */
+.wrt-compare-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1.5px solid var(--gold);padding:12px 1rem;z-index:100;align-items:center;gap:10px;}
+.wrt-compare-bar.show{display:flex;}
+.wrt-compare-label{font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);flex:1;}
+.wrt-compare-go{font-family:var(--js);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:8px 16px;background:var(--gold);color:#fff;border:none;cursor:pointer;}
+.wrt-compare-clear{font-size:16px;background:transparent;border:none;cursor:pointer;color:var(--muted);}
+#compareView{display:none;}
+#compareView.open{display:block;}
+.wrt-compare-header{display:flex;align-items:center;justify-content:space-between;padding:1rem;border-bottom:0.5px solid var(--border);background:var(--card);}
+.wrt-compare-title{font-family:var(--cg);font-size:22px;font-weight:300;}
+.wrt-compare-back{font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);cursor:pointer;background:none;border:none;}
+.wrt-compare-cols{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.wrt-compare-col{background:var(--card);padding:14px;}
+.wrt-compare-col-brand{font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+.wrt-compare-col-name{font-family:var(--cg);font-size:15px;margin-bottom:6px;line-height:1.2;}
+.wrt-compare-col-price{font-family:var(--cg);font-size:19px;font-weight:300;margin-bottom:12px;}
+.wrt-compare-spec-row{padding:5px 0;border-bottom:0.5px solid var(--border);}
+.wrt-compare-spec-lbl{font-size:8px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+.wrt-compare-spec-val{font-family:var(--cg);font-size:13px;margin-top:1px;}
+.wrt-compare-wa{width:100%;margin-top:12px;font-family:var(--js);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:10px;background:var(--ink);color:var(--card);border:none;cursor:pointer;}
+.wrt-footer{text-align:center;padding:2rem 1rem;border-top:0.5px solid var(--border);margin-top:1px;background:var(--card);}
+.wrt-footer-logo{font-family:var(--cg);font-size:18px;font-weight:300;letter-spacing:0.2em;color:var(--muted);}
+.wrt-footer-logo span{color:var(--gold);}
+.wrt-footer-sub{font-size:9px;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+.wrt-toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--card);font-family:var(--js);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:9px 22px;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:9999;white-space:nowrap;}
+.wrt-toast.show{opacity:1;}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="wrt-header">
+    <div class="wrt-logo">WRIST <span>YOUR</span> TIME</div>
+    <div class="wrt-tagline">Timepieces · Costa Rica</div>
+  </header>
+  <div id="catalogView">
+    <div class="wrt-controls">
+      <input type="text" class="wrt-search" id="searchInput" placeholder="Buscar reloj, marca, referencia...">
+      <div class="wrt-filters" id="filterBtns">
+        <button class="wrt-filter-btn active" data-filter="all">Todos</button>
+        <button class="wrt-filter-btn" data-filter="Invicta">Invicta</button>
+        <button class="wrt-filter-btn" data-filter="Tissot">Tissot</button>
+        <button class="wrt-filter-btn" data-filter="Citizen">Citizen</button>
+        <button class="wrt-filter-btn" data-filter="Seiko">Seiko</button>
+        <button class="wrt-filter-btn" data-filter="favorite">❤ Favoritos</button>
+      </div>
+    </div>
+    <div class="wrt-actions-row">
+      <span class="wrt-count" id="countLabel">Cargando...</span>
+    </div>
+    <div class="wrt-grid" id="watchGrid"></div>
+    <div id="emptyState" class="wrt-empty" style="display:none">Sin resultados</div>
+  </div>
+  <div id="compareView">
+    <div class="wrt-compare-header">
+      <div class="wrt-compare-title">Comparación</div>
+      <button class="wrt-compare-back" id="backFromCompare">← Catálogo</button>
+    </div>
+    <div id="compareCols" class="wrt-compare-cols"></div>
+  </div>
+  <footer class="wrt-footer">
+    <div class="wrt-footer-logo">WRIST <span>YOUR</span> TIME</div>
+    <div class="wrt-footer-sub">Costa Rica · @wristyourtime</div>
+  </footer>
+</div>
+
+<div class="wrt-modal-backdrop" id="detailModal">
+  <div class="wrt-modal" id="modalContent"></div>
+</div>
+<div class="wrt-compare-bar" id="compareBar">
+  <span class="wrt-compare-label" id="compareBarLabel">0 seleccionados</span>
+  <button class="wrt-compare-go" id="compareGo">Comparar</button>
+  <button class="wrt-compare-clear" id="compareClearBtn"><i class="ti ti-x"></i></button>
+</div>
+<div class="wrt-toast" id="toast"></div>
+
+<script>
+const WHATSAPP = '50687565911';
+
+let watches = [];
+
+async function loadInventory() {
+  try {
+    const res = await fetch('./inventario.json?t=' + Date.now());
+    const data = await res.json();
+    watches = (data.watches || []).filter(w => w.active !== false);
+  } catch (e) {
+    watches = [];
+  }
+  renderGrid();
+}
+
+let favorites = new Set();
+let compareSet = new Set();
+let activeFilter = 'all';
+let searchQuery = '';
+
+function filtered() {
+  return watches.filter(w => {
+    const q = searchQuery.toLowerCase();
+    const matchSearch = !q || w.brand.toLowerCase().includes(q) || w.name.toLowerCase().includes(q) || w.ref.toLowerCase().includes(q) || w.dial.toLowerCase().includes(q);
+    const matchFilter = activeFilter === 'all' ? true : activeFilter === 'favorite' ? favorites.has(w.id) : w.brand === activeFilter;
+    return matchSearch && matchFilter;
+  });
+}
+
+function fmtPrice(w) {
+  const sym = w.currency === 'CRC' ? '₡' : '$';
+  return sym + w.price.toLocaleString() + ' ' + w.currency;
+}
+
+function renderGrid() {
+  const list = filtered();
+  const grid = document.getElementById('watchGrid');
+  const empty = document.getElementById('emptyState');
+  document.getElementById('countLabel').textContent = list.length + ' pieza' + (list.length !== 1 ? 's' : '');
+  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = list.map(w => `
+    <div class="wrt-card">
+      ${w.imgs.length ? `<img class="wrt-card-img" src="${w.imgs[0]}" alt="${w.brand} ${w.name}">` : `<div class="wrt-card-placeholder"><i class="ti ti-clock wrt-watch-icon"></i><span class="wrt-card-placeholder-label">${w.brand}</span></div>`}
+      <div class="wrt-card-overlay">
+        <button class="wrt-fav-btn ${favorites.has(w.id)?'active':''}" data-fav="${w.id}" aria-label="Favorito"><i class="ti ti-heart"></i></button>
+        <button class="wrt-compare-btn ${compareSet.has(w.id)?'active':''}" data-cmp="${w.id}" aria-label="Comparar"><i class="ti ti-columns"></i></button>
+      </div>
+      <div class="wrt-card-info">
+        <div class="wrt-card-brand">${w.brand}</div>
+        <div class="wrt-card-name">${w.name}</div>
+        <div class="wrt-card-ref">${w.ref}</div>
+        <div class="wrt-card-price">${fmtPrice(w)}</div>
+      </div>
+      <div class="wrt-cta">
+        <button class="wrt-btn-wa" data-wa="${w.id}">Cotizar</button>
+        <button class="wrt-btn-detail" data-detail="${w.id}">Ver más</button>
+      </div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('[data-fav]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); toggleFav(+b.dataset.fav); }));
+  grid.querySelectorAll('[data-cmp]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); toggleCompare(+b.dataset.cmp); }));
+  grid.querySelectorAll('[data-wa]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); openWA(+b.dataset.wa); }));
+  grid.querySelectorAll('[data-detail]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); openDetail(+b.dataset.detail); }));
+}
+
+function toggleFav(id) {
+  favorites.has(id) ? favorites.delete(id) : favorites.add(id);
+  renderGrid(); showToast(favorites.has(id) ? 'Agregado a favoritos' : 'Eliminado de favoritos');
+}
+
+function toggleCompare(id) {
+  if (compareSet.has(id)) { compareSet.delete(id); }
+  else if (compareSet.size < 2) { compareSet.add(id); }
+  else { showToast('Máximo 2 relojes para comparar'); return; }
+  renderGrid(); updateCompareBar();
+}
+
+function updateCompareBar() {
+  const bar = document.getElementById('compareBar');
+  const lbl = document.getElementById('compareBarLabel');
+  compareSet.size > 0 ? bar.classList.add('show') : bar.classList.remove('show');
+  lbl.textContent = compareSet.size + ' seleccionado' + (compareSet.size > 1 ? 's' : '');
+}
+
+function openWA(id) {
+  const w = watches.find(x => x.id === id);
+  if (!w) return;
+  const msg = encodeURIComponent('Hola! Me interesa cotizar el ' + w.brand + ' ' + w.name + ' (Ref. ' + w.ref + '). Precio: ' + fmtPrice(w) + '. ¿Está disponible?');
+  window.open('https://wa.me/' + WHATSAPP + '?text=' + msg, '_blank');
+}
+
+function buildCarousel(imgs, watchId) {
+  if (!imgs.length) return '<div class="wrt-modal-img-placeholder"><i class="ti ti-clock"></i></div>';
+  if (imgs.length === 1) return `<div class="wrt-zoom-wrap" id="zoomWrap"><img src="${imgs[0]}" id="zoomImg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;"><div class="wrt-zoom-lens" id="zoomLens"></div><div class="wrt-zoom-result" id="zoomResult"></div></div>`;
+
+  const slides = imgs.map((src, i) => `<div class="wrt-carousel-slide"><img src="${src}" alt="foto ${i+1}"></div>`).join('');
+  const dots = imgs.map((_, i) => `<button class="wrt-dot ${i===0?'active':''}" data-dot="${i}"></button>`).join('');
+  return `
+    <div class="wrt-carousel" id="carousel">
+      <div class="wrt-carousel-track" id="carouselTrack">${slides}</div>
+      <button class="wrt-carousel-prev" id="carPrev"><i class="ti ti-chevron-left"></i></button>
+      <button class="wrt-carousel-next" id="carNext"><i class="ti ti-chevron-right"></i></button>
+      <div class="wrt-carousel-dots">${dots}</div>
+    </div>
+  `;
+}
+
+function initCarousel(total) {
+  if (total <= 1) { initZoom(); return; }
+  let current = 0;
+  const track = document.getElementById('carouselTrack');
+  const dots = document.querySelectorAll('.wrt-dot');
+
+  function goTo(n) {
+    current = (n + total) % total;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  document.getElementById('carPrev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('carNext').addEventListener('click', () => goTo(current + 1));
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.dot)));
+
+  // Touch swipe
+  const car = document.getElementById('carousel');
+  let startX = 0;
+  car.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+  car.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
+  }, {passive:true});
+}
+
+function initZoom() {
+  const wrap = document.getElementById('zoomWrap');
+  const img = document.getElementById('zoomImg');
+  const lens = document.getElementById('zoomLens');
+  const result = document.getElementById('zoomResult');
+  if (!wrap || !img || !lens || !result) return;
+  const ratio = 3;
+  const lw = 100, lh = 75;
+  function setup() {
+    lens.style.width = lw + 'px'; lens.style.height = lh + 'px';
+    result.style.backgroundImage = 'url("' + img.src + '")';
+    result.style.backgroundSize = (img.offsetWidth * ratio) + 'px ' + (img.offsetHeight * ratio) + 'px';
+  }
+  img.onload = setup; if (img.complete) setup();
+  wrap.addEventListener('mousemove', e => {
+    const r = wrap.getBoundingClientRect();
+    let x = Math.max(0, Math.min(e.clientX - r.left - lw/2, wrap.offsetWidth - lw));
+    let y = Math.max(0, Math.min(e.clientY - r.top - lh/2, wrap.offsetHeight - lh));
+    lens.style.left = x + 'px'; lens.style.top = y + 'px';
+    result.style.backgroundPosition = '-' + (x*ratio) + 'px -' + (y*ratio) + 'px';
+  });
+  wrap.addEventListener('mouseenter', () => { lens.style.display='block'; result.style.display='block'; setup(); });
+  wrap.addEventListener('mouseleave', () => { lens.style.display='none'; result.style.display='none'; });
+}
+
+function openDetail(id) {
+  const w = watches.find(x => x.id === id);
+  if (!w) return;
+  const modal = document.getElementById('detailModal');
+  document.getElementById('modalContent').innerHTML = `
+    <button class="wrt-modal-close" id="closeModal" aria-label="Cerrar"><i class="ti ti-x"></i></button>
+    ${buildCarousel(w.imgs, w.id)}
+    <div class="wrt-modal-body">
+      <div class="wrt-modal-brand">${w.brand}</div>
+      <div class="wrt-modal-name">${w.name}</div>
+      <div class="wrt-modal-ref">Ref. ${w.ref}</div>
+      <div class="wrt-modal-price">${fmtPrice(w)}</div>
+      <div class="wrt-modal-specs">
+        <div class="wrt-modal-spec"><span class="wrt-modal-spec-label">Movimiento</span><span class="wrt-modal-spec-val">${w.movement}</span></div>
+        <div class="wrt-modal-spec"><span class="wrt-modal-spec-label">Esfera</span><span class="wrt-modal-spec-val">${w.dial}</span></div>
+        <div class="wrt-modal-spec"><span class="wrt-modal-spec-label">Material</span><span class="wrt-modal-spec-val">${w.material}</span></div>
+        <div class="wrt-modal-spec"><span class="wrt-modal-spec-label">Referencia</span><span class="wrt-modal-spec-val">${w.ref}</span></div>
+      </div>
+      <button class="wrt-modal-wa" onclick="openWA(${w.id})">Cotizar por WhatsApp</button>
+    </div>
+  `;
+  modal.classList.add('open');
+  document.getElementById('closeModal').addEventListener('click', () => modal.classList.remove('open'));
+  setTimeout(() => initCarousel(w.imgs.length), 50);
+}
+
+document.getElementById('detailModal').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('open');
+});
+
+document.getElementById('compareGo').addEventListener('click', () => {
+  if (compareSet.size < 2) { showToast('Selecciona 2 relojes'); return; }
+  document.getElementById('catalogView').style.display = 'none';
+  document.getElementById('compareView').classList.add('open');
+  const ws = [...compareSet].map(id => watches.find(w => w.id === id));
+  const specs = ['movement','dial','material','ref'];
+  const labels = {movement:'Movimiento',dial:'Esfera',material:'Material',ref:'Referencia'};
+  document.getElementById('compareCols').innerHTML = ws.map(w => `
+    <div class="wrt-compare-col">
+      ${w.imgs.length ? `<img src="${w.imgs[0]}" style="width:100%;aspect-ratio:1;object-fit:cover;margin-bottom:10px">` : `<div style="width:100%;aspect-ratio:1;background:var(--surface);display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:40px;color:var(--muted);opacity:0.2"><i class="ti ti-clock"></i></div>`}
+      <div class="wrt-compare-col-brand">${w.brand}</div>
+      <div class="wrt-compare-col-name">${w.name}</div>
+      <div class="wrt-compare-col-price">${fmtPrice(w)}</div>
+      ${specs.map(s => `<div class="wrt-compare-spec-row"><div class="wrt-compare-spec-lbl">${labels[s]}</div><div class="wrt-compare-spec-val">${w[s]}</div></div>`).join('')}
+      <button class="wrt-compare-wa" onclick="openWA(${w.id})">Cotizar</button>
+    </div>
+  `).join('');
+});
+
+document.getElementById('backFromCompare').addEventListener('click', () => {
+  document.getElementById('catalogView').style.display = '';
+  document.getElementById('compareView').classList.remove('open');
+});
+
+document.getElementById('compareClearBtn').addEventListener('click', () => {
+  compareSet.clear(); updateCompareBar(); renderGrid();
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value; renderGrid();
+});
+
+document.getElementById('filterBtns').addEventListener('click', e => {
+  const btn = e.target.closest('.wrt-filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.wrt-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.filter;
+  renderGrid();
+});
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+loadInventory();
+</script>
+</body>
+</html>
