@@ -110,6 +110,11 @@ tr.inactive{opacity:0.45;}
 .adm-toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--card);font-family:var(--js);font-size:10px;letter-spacing:0.1em;padding:10px 20px;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:9999;}
 .adm-toast.show{opacity:1;}
 .adm-toast.error{background:var(--bad);}
+
+.adm-photos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;}
+.adm-photo-thumb{position:relative;aspect-ratio:1;border:0.5px solid var(--border-strong);overflow:hidden;background:var(--surface);}
+.adm-photo-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.adm-photo-remove{position:absolute;top:2px;right:2px;width:18px;height:18px;background:rgba(0,0,0,0.65);color:#fff;border:none;border-radius:50%;font-size:11px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
 </style>
 </head>
 <body>
@@ -199,9 +204,11 @@ tr.inactive{opacity:0.45;}
         </div>
       </div>
       <div class="adm-field">
-        <label>Fotos (una URL de Cloudinary por línea)</label>
-        <textarea id="f_imgs" placeholder="https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/..."></textarea>
-        <div class="adm-hint">Déjalo vacío si todavía no hay fotos reales — se mostrará el ícono de reloj como marcador.</div>
+        <label>Fotos</label>
+        <div class="adm-photos-grid" id="photosGrid"></div>
+        <input type="file" id="f_imgs_file" accept="image/*" multiple style="display:none">
+        <button type="button" class="adm-btn-sm" id="addPhotoBtn">+ Agregar fotos</button>
+        <div class="adm-hint" id="photosHint">Toca para elegir fotos desde tu iPad (cámara o Fototeca) — se suben solas.</div>
       </div>
       <div class="adm-drawer-actions">
         <button type="button" class="adm-btn-sm" id="cancelEditBtn">Cancelar</button>
@@ -215,11 +222,14 @@ tr.inactive{opacity:0.45;}
 
 <script>
 const FN_URL = '/.netlify/functions/admin-data';
+const CLOUDINARY_CLOUD = 'dakvdsjzh';
+const CLOUDINARY_PRESET = 'wrt_admin_unsigned'; // ver instrucciones para crear este preset en Cloudinary
 
 let password = sessionStorage.getItem('wrt_admin_pw') || '';
 let watches = [];
 let dirty = false;
 let editingId = null;
+let formImgs = [];
 
 function showToast(msg, isError) {
   const t = document.getElementById('toast');
@@ -429,9 +439,62 @@ function openEdit(id) {
   document.getElementById('f_price').value = w ? w.price : '';
   document.getElementById('f_stock').value = w ? (Number(w.stock) || 0) : 0;
   document.getElementById('f_active').value = w ? String(w.active !== false) : 'true';
-  document.getElementById('f_imgs').value = w ? (w.imgs || []).join('\n') : '';
+  formImgs = w ? [...(w.imgs || [])] : [];
+  renderPhotosGrid();
   document.getElementById('drawerBackdrop').classList.add('open');
 }
+
+function renderPhotosGrid() {
+  const grid = document.getElementById('photosGrid');
+  grid.innerHTML = formImgs.map((url, i) => `
+    <div class="adm-photo-thumb">
+      <img src="${url}" alt="foto ${i + 1}">
+      <button type="button" class="adm-photo-remove" data-removeimg="${i}">&times;</button>
+    </div>
+  `).join('');
+  grid.querySelectorAll('[data-removeimg]').forEach(btn => btn.addEventListener('click', () => {
+    formImgs.splice(+btn.dataset.removeimg, 1);
+    renderPhotosGrid();
+  }));
+}
+
+async function uploadToCloudinary(file) {
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('upload_preset', CLOUDINARY_PRESET);
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
+    method: 'POST',
+    body: fd
+  });
+  if (!res.ok) throw new Error('No se pudo subir la foto');
+  const data = await res.json();
+  return data.secure_url.replace('/upload/', '/upload/f_auto,q_auto/');
+}
+
+document.getElementById('addPhotoBtn').addEventListener('click', () => {
+  document.getElementById('f_imgs_file').click();
+});
+
+document.getElementById('f_imgs_file').addEventListener('change', async (e) => {
+  const files = [...e.target.files];
+  if (!files.length) return;
+  const hint = document.getElementById('photosHint');
+  const btn = document.getElementById('addPhotoBtn');
+  btn.disabled = true;
+  for (let i = 0; i < files.length; i++) {
+    hint.textContent = `Subiendo foto ${i + 1} de ${files.length}...`;
+    try {
+      const url = await uploadToCloudinary(files[i]);
+      formImgs.push(url);
+      renderPhotosGrid();
+    } catch (err) {
+      showToast('No se pudo subir una foto. Intenta de nuevo.', true);
+    }
+  }
+  hint.textContent = 'Toca para elegir fotos desde tu iPad (cámara o Fototeca) — se suben solas.';
+  btn.disabled = false;
+  e.target.value = '';
+});
 
 function closeEdit() {
   document.getElementById('drawerBackdrop').classList.remove('open');
@@ -440,7 +503,7 @@ function closeEdit() {
 
 document.getElementById('editForm').addEventListener('submit', e => {
   e.preventDefault();
-  const imgs = document.getElementById('f_imgs').value.split('\n').map(s => s.trim()).filter(Boolean);
+  const imgs = formImgs;
   const costRaw = document.getElementById('f_cost').value;
   const payload = {
     brand: document.getElementById('f_brand').value.trim(),
