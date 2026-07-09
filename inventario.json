@@ -28,7 +28,7 @@
       "material": "Acero inoxidable",
       "price": 58000,
       "currency": "CRC",
-      "active": false,
+      "active": true,
       "imgs": [
         "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/C2B1AC90-46A4-4774-A541-16F8B6030A2D_oigmmr",
         "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/Imagen_1-7-26_a_las_11.38_a._m._h1xohe",
