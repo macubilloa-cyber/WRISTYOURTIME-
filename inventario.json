@@ -61,7 +61,11 @@
       "price": 155000,
       "currency": "CRC",
       "active": true,
-      "imgs": []
+      "imgs": [
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1783561898/mj2wp1ulquhfeda8j4ch.jpg",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1783561903/ufclllrgoxtjlxwnntsk.jpg",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1783561908/gakb75hat8dkqu6altvi.jpg"
+      ]
     },
     {
       "id": 5,
