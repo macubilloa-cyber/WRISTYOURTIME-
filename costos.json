@@ -1,12 +1,44 @@
 {
   "costs": [
-    { "id": 1, "cost": null,   "stock": 0 },
-    { "id": 2, "cost": 40000,  "stock": 3 },
-    { "id": 3, "cost": 148000, "stock": 1 },
-    { "id": 4, "cost": null,   "stock": 0 },
-    { "id": 5, "cost": 123000, "stock": 1 },
-    { "id": 6, "cost": 124000, "stock": 1 },
-    { "id": 7, "cost": 64000,  "stock": 1 },
-    { "id": 8, "cost": 57000,  "stock": 1 }
+    {
+      "id": 1,
+      "cost": null,
+      "stock": 0
+    },
+    {
+      "id": 2,
+      "cost": 40000,
+      "stock": 3
+    },
+    {
+      "id": 3,
+      "cost": 148000,
+      "stock": 1
+    },
+    {
+      "id": 4,
+      "cost": null,
+      "stock": 0
+    },
+    {
+      "id": 5,
+      "cost": 123000,
+      "stock": 1
+    },
+    {
+      "id": 6,
+      "cost": 124000,
+      "stock": 1
+    },
+    {
+      "id": 7,
+      "cost": 64000,
+      "stock": 1
+    },
+    {
+      "id": 8,
+      "cost": 57000,
+      "stock": 1
+    }
   ]
 }
