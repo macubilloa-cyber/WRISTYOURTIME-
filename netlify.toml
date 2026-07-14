@@ -1,3 +1,4 @@
 [build]
-  functions = "netlify/functions"
-  publish = "."
+  base = "wristyourtime"
+  command = "npm run build"
+  publish = "wristyourtime/dist"
