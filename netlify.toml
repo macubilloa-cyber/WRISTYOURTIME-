@@ -1,3 +1,4 @@
 [build]
   functions = "netlify/functions"
   publish = "."
+  # redeploy trigger: refrescar ADMIN_PASSWORD en la función admin-data
