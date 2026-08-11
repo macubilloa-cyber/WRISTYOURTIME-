@@ -92,6 +92,7 @@ exports.handler = async (event) => {
 
     return { statusCode: 405, body: JSON.stringify({ error: 'Método no permitido' }) };
   } catch (err) {
+    console.error('admin-data error:', err);
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
 };
