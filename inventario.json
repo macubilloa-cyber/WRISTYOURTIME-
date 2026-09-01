@@ -139,6 +139,78 @@
       "imgs": [
         "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1783563031/og1h7v5f0s3rshbi9xuj.jpg"
       ]
+    },
+    {
+      "id": 9,
+      "brand": "CITIZEN",
+      "name": "Zenshin Eco-Drive",
+      "ref": "AW0130-85M",
+      "sku": "1234",
+      "movement": "Citizen Caliber Eco-Drive J800",
+      "dial": "Zafiro",
+      "material": "Acero Inoxidable",
+      "price": 176000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": [
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226269/cf0asfgvdaaqade1pgwa.jpg",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226269/kmcjgbdxo1gko8qzeupz.jpg",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226270/z69wk9vzwrsezpctku2n.jpg"
+      ]
+    },
+    {
+      "id": 10,
+      "brand": "Tissot",
+      "name": "PRX",
+      "ref": "T137.410.11.051.00",
+      "sku": "12345",
+      "movement": "Cuarzo",
+      "dial": "Zafiro",
+      "material": "Acero Inoxidable",
+      "price": 178000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": [
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226439/tqsohhoxp7jm1deixlni.jpg",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226440/rn0p81y9rwgp1gp6pmuf.jpg",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226440/xsdcdzk52phtcldy8t1o.jpg"
+      ]
+    },
+    {
+      "id": 11,
+      "brand": "Orient",
+      "name": "Open Heart",
+      "ref": "RA-AR0004S10B",
+      "sku": "123456",
+      "movement": "Orient Calibre F6S22 Automatic",
+      "dial": "Zafiro",
+      "material": "Acero Inoxidable",
+      "price": 128000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": [
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226651/zyifkdmw5q8r1yl67jxi.jpg",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226652/zhmcmxrh7lvrgzi3mgrd.jpg",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226652/gqaf8p00atfpxwqo20pa.jpg"
+      ]
+    },
+    {
+      "id": 12,
+      "brand": "Orient",
+      "name": "Contemporar",
+      "ref": "RA-AR0008E10B",
+      "sku": "1234567",
+      "movement": "Orient Calibre F6S22 Automatic",
+      "dial": "Zafiro",
+      "material": "Acero Inoxidable",
+      "price": 138000,
+      "currency": "CRC",
+      "active": true,
+      "imgs": [
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226801/erts49z60m9jtzqg1xxy.jpg",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226802/i5cjak3dkfm40v2rqcq5.jpg",
+        "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226802/ohpedtej1cofpfqasqtu.jpg"
+      ]
     }
   ]
 }
