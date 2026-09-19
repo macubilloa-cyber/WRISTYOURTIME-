@@ -46,7 +46,7 @@
       "material": "Acero inoxidable",
       "price": 188000,
       "currency": "CRC",
-      "active": true,
+      "active": false,
       "imgs": [
         "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1784044228/f6h635vdi6lfluakujxl.webp",
         "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1784044234/dnjl1cge60b7djv8oclq.jpg",
@@ -151,7 +151,7 @@
       "material": "Acero Inoxidable",
       "price": 176000,
       "currency": "CRC",
-      "active": true,
+      "active": false,
       "imgs": [
         "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226269/cf0asfgvdaaqade1pgwa.jpg",
         "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226269/kmcjgbdxo1gko8qzeupz.jpg",
@@ -205,7 +205,7 @@
       "material": "Acero Inoxidable",
       "price": 138000,
       "currency": "CRC",
-      "active": true,
+      "active": false,
       "imgs": [
         "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226801/erts49z60m9jtzqg1xxy.jpg",
         "https://res.cloudinary.com/dakvdsjzh/image/upload/f_auto,q_auto/v1788226802/i5cjak3dkfm40v2rqcq5.jpg",
